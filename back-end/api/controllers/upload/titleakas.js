@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-const titleBasics = require('../../models/titlebasics');
+const titleAkas = require('../../models/titleakas');
 
-exports.UploadTitleBasics = async (req, res) => {
+exports.UploadTitleAkas = async (req, res) => {
     try {
-        
+
         //check if there is a file selected for upload
         if (!req.file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
-    
+
         //Access the TSV data from the buffer
         const tsvDataBuffer = req.file.buffer;
     
@@ -20,33 +20,31 @@ exports.UploadTitleBasics = async (req, res) => {
 
         const headers = rows.shift();
 
-        const collection = titleBasics;
-    
+        const collection = titleAkas;
+
         /*associate each row generated 
-          with each field of the model
+        with each field of the model
         */
         const data = rows.map(row => ({
-            tconst: row[0],
-            titleType: row[1],
-            primaryTitle: row[2],
-            originalTitle: row[3],
-            isAdult: row[4],
-            startYear: row[5],
-            endYear: row[6],
-            runtimeMinutes: row[7],
-            genres: row[8],
-            img_url_asset: row[9],
+            titleId: row[0],
+            ordering: row[1],
+            title: row[2],
+            region: row[3],
+            language: row[4],
+            types: row[5],
+            attributes: row[6],
+            isOriginalTitle: row[7]
         }));
-    
-        const alreadyUploaded = await titleBasics.findOne({ $or: data });
+
+        const alreadyUploaded = await titleAkas.findOne({ $or: data });
         if(alreadyUploaded) {
-            res.status(500).json({ error: 'TitleBasics: File already uploaded' })
+            res.status(500).json({ error: 'TitleAkas: File already uploaded' })
         } else {
-            await titleBasics.insertMany(data);
-            res.status(200).json({ message: 'TitleBasics: File uploaded successfully' })
+            await titleAkas.insertMany(data);
+            res.status(200).json({ message: 'TitleAkas: File uploaded successfully' })
         }
     } catch (error) {
         console.error('Error uploading the file', error);
         res.status(500).json({ error: 'Error uploading the file' });
     }
-}
+}  

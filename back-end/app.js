@@ -21,16 +21,19 @@ app.use((req, res, next) => {
   next()
 })
 
-const generalRoutes = require('./api/routes/general')
-app.use('/general', generalRoutes);
-
-//middleware for the healthcheck endpoint
+//Handler for the healthcheck endpoint
 const healthcheckRoute = require('./api/routes/admin/healthcheck') 
-app.use('/admin/healthcheck', healthcheckRoute);
+app.use('/ntuaflix_api/admin/healthcheck', healthcheckRoute);
 
-//middleware for the upload_title_basics endpoint
+//Handler for the database uploads
 const uploadRoute = require('./api/routes/admin/uploads');
-app.use('/admin/upload', uploadRoute);
+app.use('/ntuaflix_api/admin/upload', uploadRoute);
+
+app.use('/ntuaflix_api', (req, res) => {
+  res.status(200).json({
+    ntuaflix_api: "Welcome to the ntuaflix_api!"
+  })
+})
 
 app.use((req, res, next) => {
   const error = new Error('Endpoint implementation not found');
