@@ -11,10 +11,10 @@ exports.UploadTitleBasics = async (req, res) => {
         }
     
         //Check if the file is already uploaded in the database
-        /*const alreadyUploaded = titleBasics.findOne();
+        const alreadyUploaded = titleBasics.findOne();
         if(alreadyUploaded) {
             return res.status(500).json({ error: 'File already uploaded' })
-        }*/
+        }
 
         //Access the TSV data from the buffer
         const tsvDataBuffer = req.file.buffer;
