@@ -21,4 +21,10 @@ router.post('/namebasics', upload.single('truncated_name.basics.tsv'), nameBasic
 //titlecrew upload handler
 const titleCrewController = require('../../controllers/upload/titlecrew');
 router.post('/titlecrew', upload.single('truncated_title.crew.tsv'), titleCrewController.UploadTitleCrew);
+
+//titleepisode upload handler
+const titleEpisodeController = require('../../controllers/upload/titleepisode');
+router.post('/titleepisode', upload.single('truncated_title.episode.tsv'), titleEpisodeController.UploadTitleEpisode);
+
+
 module.exports = router;
