@@ -30,7 +30,7 @@ router.post('/titleepisode', upload.single('truncated_title.episode.tsv'), title
 const titlePrincipalsController = require('../../controllers/upload/titleprincipals');
 router.post('/titleprincipals', upload.single('truncated_title.principals.tsv'), titlePrincipalsController.UploadTitlePrincipals);
 
-//titleprincipals upload handler
+//titleratings upload handler
 const titleRatingsController = require('../../controllers/upload/titleratings');
 router.post('/titleratings', upload.single('truncated_title.ratings.tsv'), titleRatingsController.UploadTitleRatings);
 
