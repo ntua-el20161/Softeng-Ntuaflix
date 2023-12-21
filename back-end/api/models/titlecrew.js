@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const titleCrewModel = mongoose.model('titlecrew', new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -7,4 +7,4 @@ const titleCrewModel = mongoose.model('titlecrew', new mongoose.Schema({
     writers: { type: String },
 }))
 
-module.exports = titleCrewModel;
+module.exports = titleCrewModel

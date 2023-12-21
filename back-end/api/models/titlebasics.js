@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const titlebasicsModel = mongoose.model('titlebasics', new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -6,7 +6,7 @@ const titlebasicsModel = mongoose.model('titlebasics', new mongoose.Schema({
     titleType: { type: String },
     primaryTitle: { type: String },
     originalTitle: { type: String },
-    isAdult: { type: Boolean },
+    isAdult: { type: String },
     startYear: { type: String },
     endYear: { type: String },
     runtimeMinutes: { type: String },
@@ -14,4 +14,4 @@ const titlebasicsModel = mongoose.model('titlebasics', new mongoose.Schema({
     img_url_asset: { type: String}
 }))
 
-module.exports = titlebasicsModel;
+module.exports = titlebasicsModel
