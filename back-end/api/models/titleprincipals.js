@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const titlePrincipalsModel = mongoose.model('titleprincipals', new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -11,4 +11,4 @@ const titlePrincipalsModel = mongoose.model('titleprincipals', new mongoose.Sche
     img_url_asset: { type: String },
 }))
 
-module.exports = titlePrincipalsModel;
+module.exports = titlePrincipalsModel
