@@ -5,7 +5,7 @@
 
 const mongoose = require('mongoose')
 
-const connectionString = 'mongodb://localhost:27017/sample_data_softeng';
+const connectionString = 'mongodb://127.0.0.1:27017/sample_data_softeng';
 mongoose.connect(connectionString);
 
 const db = mongoose.connection
