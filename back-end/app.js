@@ -27,6 +27,10 @@ app.use('/ntuaflix_api/admin/healthcheck', healthcheckRoute)
 const uploadRoute = require('./api/routes/admin/uploads')
 app.use('/ntuaflix_api/admin/upload', uploadRoute)
 
+//Handler for resetting all data
+const resetAllRoute = require('./api/routes/admin/resetall')
+app.use('/ntuaflix_api/admin/resetall', resetAllRoute)
+
 //Handler for the title/titleID
 const titleRoute = require('./api/routes/info/title')
 app.use('/ntuaflix_api/info/title', titleRoute)
@@ -34,6 +38,14 @@ app.use('/ntuaflix_api/info/title', titleRoute)
 //Handler for the name/nameID
 const nameRoute = require('./api/routes/info/name')
 app.use('/ntuaflix_api/info/name', nameRoute)
+
+//Handler for the searchname
+const searchNameRoute = require('./api/routes/info/searchname')
+app.use('/ntuaflix_api/info/searchname', searchNameRoute)
+
+//Handler for the bygenre
+const byGenreRoute = require('./api/routes/info/bygenre')
+app.use('/ntuaflix_api/info/bygenre', byGenreRoute)
 
 app.use('/ntuaflix_api', (req, res) => {
   res.status(200).json({
