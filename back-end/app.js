@@ -39,9 +39,21 @@ app.use('/ntuaflix_api/info/title', titleRoute)
 const nameRoute = require('./api/routes/info/name')
 app.use('/ntuaflix_api/info/name', nameRoute)
 
-//Handler for the searchname
+//Handler for the searchname with body
 const searchNameRoute = require('./api/routes/info/searchname')
 app.use('/ntuaflix_api/info/searchname', searchNameRoute)
+
+//Handler for the searchname with query
+const qsearchNameRoute = require('./api/routes/info/qsearchname')
+app.use('/ntuaflix_api/searchname', qsearchNameRoute)
+
+//Handler for the searchname with body
+const searchTitleRoute = require('./api/routes/info/searchtitle')
+app.use('/ntuaflix_api/info/searchtitle', searchTitleRoute)
+
+//Handler for the searchname with query
+const qsearchTitleRoute = require('./api/routes/info/qsearchtitle')
+app.use('/ntuaflix_api/searchtitle', qsearchTitleRoute)
 
 //Handler for the bygenre
 const byGenreRoute = require('./api/routes/info/bygenre')
