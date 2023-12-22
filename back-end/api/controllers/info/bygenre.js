@@ -6,13 +6,13 @@ const TitleBasics = require('../../models/titlebasics')
 
 exports.GetTitleByGenre = async (req, res) => {
     try {
-        const genre = req.body.qgenre;
-        const minRating = req.body.minrating;
+        const genre = req.body.qgenre
+        const minRating = req.body.minrating
 
         if (!genre || !minRating) {
             return res.status(400).json({
-                message: 'Missing qgenre or minrating in the request body',
-            });
+                message: 'Missing qgenre or minrating in the request body'
+            })
         }
 
         const titlesByGenre = await TitleBasics.find({ genres: { $regex: new RegExp(`\\b${genre}\\b`) } }).exec()
@@ -57,7 +57,7 @@ exports.GetTitleByGenre = async (req, res) => {
             titles: titles,
         })
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error)
         res.status(500).json({
             error: 'Internal Server Error',
         })

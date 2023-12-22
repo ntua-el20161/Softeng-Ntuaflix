@@ -3,17 +3,17 @@ const NameBasics = require('../../models/namebasics')
 
 exports.GetSearchName = async (req, res) => {
     try {
-        const namePart = req.body.namePart;
+        const namePart = req.body.namePart
 
         if (!namePart) {
             return res.status(400).json({
-                message: 'Missing namePart in the request body',
-            });
+                message: 'Missing namePart in the request body'
+            })
         }
 
-        const regex = new RegExp(namePart);
+        const regex = new RegExp(namePart)
 
-        const names = await NameBasics.find({ primaryName: regex }).exec();
+        const names = await NameBasics.find({ primaryName: regex }).exec()
 
         const nameList = names ? await Promise.all (names.map(async(principal) => {
 
@@ -36,12 +36,12 @@ exports.GetSearchName = async (req, res) => {
         })) : []
 
         res.status(200).json({
-            names: nameList,
+            names: nameList
         })
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error)
         res.status(500).json({
-            error: 'Internal Server Error',
+            error: 'Internal Server Error'
         })
     }
 }
