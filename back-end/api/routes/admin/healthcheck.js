@@ -2,7 +2,6 @@
 
 const express = require('express')
 const { db, connectionString } = require('../../../db')
-const mongoose = require('mongoose')
 const router = express.Router()
 
 router.get('/', (req, res, next) => {

@@ -7,7 +7,7 @@ const upload = multer({storage: storage})
 
 //titlebasics upload handler
 const titleBasicsController = require('../../controllers/upload/titlebasics')
-router.post('/titlebasics', upload.single('truncated_title.basics.tsv'), titleBasicsController.UploadTitleBasics) 
+router.post('/titlebasics', upload.single('truncated_title.basics.tsv'), titleBasicsController.UploadTitleBasics)
 
 //titleakas upload handler
 const titleAkasController = require('../../controllers/upload/titleakas')

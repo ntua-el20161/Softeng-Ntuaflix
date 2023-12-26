@@ -1,7 +1,7 @@
 const TitlePrincipals = require('../../models/titleprincipals')
 const NameBasics = require('../../models/namebasics')
 
-exports.GetNameInfo = async (req, res) => {
+exports.GetName = async (req, res) => {
     try {
         const result = await NameBasics.findOne({ nconst: req.params.nameID }).exec()
 
@@ -11,16 +11,12 @@ exports.GetNameInfo = async (req, res) => {
             })
         }
 
-        const titlePrincipals = TitlePrincipals.find({ nconst: result.nconst }).exec()
+        const titlePrincipals = await TitlePrincipals.find({ nconst: result.nconst }).exec()
 
-        const nameTitleList = titlePrincipals ? (await titlePrincipals).map(nameTitle => ({
+        const nameTitleList = titlePrincipals ? (titlePrincipals).map(nameTitle => ({
             titleID: nameTitle.tconst,
             category: nameTitle.category
-        }))
-        : ({
-            titleID: "",
-            category: ""
-        });
+        })) : []
 
         const response = {
             nameID: result.nconst,
@@ -32,6 +28,7 @@ exports.GetNameInfo = async (req, res) => {
             nameTitles: nameTitleList,
         }
         res.status(200).json(response)
+
     } catch (error) {
         console.error('Error:', error)
         res.status(500).json({

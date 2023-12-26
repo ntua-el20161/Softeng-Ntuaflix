@@ -1,6 +1,9 @@
 const TitleBasics = require('../../models/titlebasics')
 const TitleAkas = require('../../models/titleakas')
 const TitlePrincipals = require('../../models/titleprincipals')
+const TitleBasics = require('../../models/titlebasics')
+const TitleAkas = require('../../models/titleakas')
+const TitleRatings = require('../../models/titleratings')
 const NameBasics = require('../../models/namebasics')
 const TitleRatings = require('../../models/titleratings')
 

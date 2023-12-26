@@ -4,7 +4,7 @@ const TitlePrincipals = require('../../models/titleprincipals')
 const NameBasics = require('../../models/namebasics')
 const TitleRatings = require('../../models/titleratings')
 
-exports.GetTitleInfo = async (req, res) => {
+exports.GetTitle = async (req, res) => {
     try {
         const result = await TitleBasics.findOne({ tconst: req.params.titleID }).exec()
 
@@ -20,31 +20,21 @@ exports.GetTitleInfo = async (req, res) => {
 
         const genreList = result.genres.split(',').map(genre => ({ genreTitle: genre.trim() }))
 
-        const akaList = akas.map(aka => ({
+        const akaList = akas ? akas.map(aka => ({
             akaTitle: aka.title,
             regionAbbrev: aka.region
-        }))
+        })) : []
 
-        const principalList = await Promise.all(
-            titleprincipals ?
-            titleprincipals.map(async (titleprincipal) => {
+        const principalList = titleprincipals ? await Promise.all (titleprincipals.map(async (titleprincipal) => {
                 const principal = await NameBasics.findOne({ nconst: titleprincipal.nconst }).exec()
                 return {
                     nameID: principal.nconst,
                     name: principal.primaryName,
                     category: titleprincipal.category
                 }
-            })
-            : {
-                nameID: "",
-                name: "",
-                category: ""
-            }
-        )
+        })) : []
 
-        const ratingObject = rating
-        ? { avRating: rating.averageRating, nVotes: rating.numVotes }
-        : { avRating: "",  nVotes: "" }
+        const ratingObject = rating ? { avRating: rating.averageRating, nVotes: rating.numVotes } : {}
 
         const response = {
             titleID: result.tconst,
@@ -58,6 +48,7 @@ exports.GetTitleInfo = async (req, res) => {
             rating: ratingObject
         }
         res.status(200).json(response)
+
     } catch (error) {
         console.error('Error:', error)
         res.status(500).json({
