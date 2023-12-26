@@ -32,7 +32,7 @@ exports.GetName = async (req, res) => {
     } catch (error) {
         console.error('Error:', error)
         res.status(500).json({
-            error: 'Internal Server Error'
+            error: 'GetName: Internal Server Error'
         })
     }
 }

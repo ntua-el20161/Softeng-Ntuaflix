@@ -17,6 +17,9 @@ exports.UploadTitleCrew = async (req, res) => {
         //Parse the String accordingly
         const rows = tsvDataString.split('\n').map(row => row.split('\t'))
     
+        //exclude headers from insertion
+        const headers = rows.shift()
+
         //associate each row generated with each field of the model
         const data = rows.map(row => ({
             tconst: row[0],

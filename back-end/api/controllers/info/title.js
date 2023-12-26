@@ -39,7 +39,7 @@ exports.GetTitle = async (req, res) => {
         const response = {
             titleID: result.tconst,
             type: result.titleType,
-            origianlTitle: result.originalTitle,
+            originalTitle: result.originalTitle,
             titlePoster: result.img_url_asset,
             startYear: result.startYear,
             genres: genreList,
@@ -52,7 +52,7 @@ exports.GetTitle = async (req, res) => {
     } catch (error) {
         console.error('Error:', error)
         res.status(500).json({
-            error: 'Internal Server Error'
+            error: 'GetTitle: Internal Server Error'
         })
     }
 }
