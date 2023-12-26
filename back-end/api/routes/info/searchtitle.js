@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 //searchtitle info handler
-const infoSearchTitleController = require('../../controllers/info/searchtitle')
-router.get('/', infoSearchTitleController.GetSearchTitleInfo)
+const SearchTitleController = require('../../controllers/info/searchtitle')
+router.get('/', SearchTitleController.SearchTitle)
 
 module.exports = router
