@@ -1,15 +1,23 @@
-import React from 'react'
-import {SearchResult} from './SearchResult'
+import {SearchResults} from './SearchResults'
 import '../styles/SearchResultsList.css'
 
-export const SearchResultsList = ({results}) => {
+export const SearchResultsList = ({results, option}) => {
+
     return (
-        results &&
+        (results.status === 200) &&
         <div className="results-list">
             {
-                results.map((result) => {
+                option === 'Titles' ?
+                results.titles &&
+                results.titles.map((title) => {
                     return (
-                        <SearchResult result={result}/>
+                        <SearchResults key={title.titleID} result={title} option={option}/>
+                    )
+                }):
+                results.names &&
+                results.names.map((name) => {
+                    return (
+                        <SearchResults key={name.nameID} result={name} option={option}/>
                     )
                 })
             }

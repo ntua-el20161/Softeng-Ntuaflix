@@ -5,11 +5,11 @@ exports.GetSearchName = async (req, res) => {
     try {
         const namePart = req.query.namePart
 
-        if (!namePart) {
-            return res.status(400).json({
-                message: 'Missing namePart in the query parameters'
-            })
-        }
+        // if (!namePart) {
+        //     return res.status(400).json({
+        //         message: 'Missing namePart in the query parameters'
+        //     })
+        // }
 
         const regex = new RegExp(namePart)
 
