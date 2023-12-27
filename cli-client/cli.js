@@ -9,7 +9,7 @@ program
   .action(async () => {
     try {
       const response = await axios.get('http://localhost:9876/ntuaflix_api/admin/healthcheck');
-      
+
       console.log('Server Response:', response.data);
     } catch (error) {
       console.error('Error:', error.message);
@@ -47,6 +47,43 @@ program
       }
     } else {
       console.error('Please provide a name ID using --nameID.');
+    }
+  });
+
+// #testing for body with get/post request
+// program
+// .command('post')
+// .option('-t, --name <name>', 'Desired name')
+// .action(async (options) => {
+//   if (options.name) {
+//     try {
+//       const requestBody = JSON.stringify({ name: options.name });
+//       console.log('Request Body:', requestBody);
+//       const response = await axios.post('http://localhost:9876/ntuaflix_api', requestBody, {
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
+//       console.log('Status:', response.status);
+//       console.log('Search Results:', response.data);
+//     } catch (error) {
+//       console.error('Error Status:', error.response ? error.response.status : 'Unknown');
+//       console.error('Error:', error.message);
+//     }
+//   } else {
+//     console.error('Please provide a name using --name.');
+//   }
+// });
+
+program
+  .command('resetall')
+  .action(async () => {
+    try {
+      const response = await axios.post('http://localhost:9876/ntuaflix_api/admin/resetall');
+
+      console.log('Server Response:', response.data);
+    } catch (error) {
+      console.error('Error:', error.message);
     }
   });
 
