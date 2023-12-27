@@ -2,6 +2,8 @@
 
 const program = require('commander');
 const axios = require('axios').default;
+const fs = require('fs');
+const FormData = require('form-data');
 
 program
   .command('healthcheck')
@@ -84,6 +86,230 @@ program
       console.log('Server Response:', response.data);
     } catch (error) {
       console.error('Error:', error.message);
+    }
+  });
+
+program
+  .command('newtitles')
+  .option('-f, --filename <filename>', 'Specify the name of the CSV file')
+  .action((options) => {
+    const { filename } = options;
+
+    if (!filename) {
+      console.error('Please provide a filename using --filename.');
+      process.exit(1);
+    }
+
+    try {
+      const fileStream = fs.createReadStream(filename);
+      const formData = new FormData();
+      formData.append('truncated_title.basics.tsv', fileStream);
+
+      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titlebasics', formData, {
+        headers: {
+          ...formData.getHeaders(), // Important for multipart form data
+        },
+      })
+        .then((response) => {
+          console.log('Server Response:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error.message);
+        });
+    } catch (error) {
+      console.error('Error reading the file:', error.message);
+    }
+  });
+
+program
+  .command('newakas')
+  .option('-f, --filename <filename>', 'Specify the name of the CSV file')
+  .action((options) => {
+    const { filename } = options;
+
+    if (!filename) {
+      console.error('Please provide a filename using --filename.');
+      process.exit(1);
+    }
+
+    try {
+      const fileStream = fs.createReadStream(filename);
+      const formData = new FormData();
+      formData.append('truncated_title.akas.tsv', fileStream);
+
+      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titleakas', formData, {
+        headers: {
+          ...formData.getHeaders(), // Important for multipart form data
+        },
+      })
+        .then((response) => {
+          console.log('Server Response:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error.message);
+        });
+    } catch (error) {
+      console.error('Error reading the file:', error.message);
+    }
+  });
+
+program
+  .command('newnames')
+  .option('-f, --filename <filename>', 'Specify the name of the CSV file')
+  .action((options) => {
+    const { filename } = options;
+
+    if (!filename) {
+      console.error('Please provide a filename using --filename.');
+      process.exit(1);
+    }
+
+    try {
+      const fileStream = fs.createReadStream(filename);
+      const formData = new FormData();
+      formData.append('truncated_name.basics.tsv', fileStream);
+
+      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/namebasics', formData, {
+        headers: {
+          ...formData.getHeaders(), // Important for multipart form data
+        },
+      })
+        .then((response) => {
+          console.log('Server Response:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error.message);
+        });
+    } catch (error) {
+      console.error('Error reading the file:', error.message);
+    }
+  });
+
+program
+  .command('newcrew')
+  .option('-f, --filename <filename>', 'Specify the name of the CSV file')
+  .action((options) => {
+    const { filename } = options;
+
+    if (!filename) {
+      console.error('Please provide a filename using --filename.');
+      process.exit(1);
+    }
+
+    try {
+      const fileStream = fs.createReadStream(filename);
+      const formData = new FormData();
+      formData.append('truncated_title.crew.tsv', fileStream);
+
+      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titlecrew', formData, {
+        headers: {
+          ...formData.getHeaders(), // Important for multipart form data
+        },
+      })
+        .then((response) => {
+          console.log('Server Response:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error.message);
+        });
+    } catch (error) {
+      console.error('Error reading the file:', error.message);
+    }
+  });
+
+program
+  .command('newepisode')
+  .option('-f, --filename <filename>', 'Specify the name of the CSV file')
+  .action((options) => {
+    const { filename } = options;
+
+    if (!filename) {
+      console.error('Please provide a filename using --filename.');
+      process.exit(1);
+    }
+
+    try {
+      const fileStream = fs.createReadStream(filename);
+      const formData = new FormData();
+      formData.append('truncated_title.episode.tsv', fileStream);
+
+      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titleepisode', formData, {
+        headers: {
+          ...formData.getHeaders(), // Important for multipart form data
+        },
+      })
+        .then((response) => {
+          console.log('Server Response:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error.message);
+        });
+    } catch (error) {
+      console.error('Error reading the file:', error.message);
+    }
+  });
+
+program
+  .command('newprincipals')
+  .option('-f, --filename <filename>', 'Specify the name of the CSV file')
+  .action((options) => {
+    const { filename } = options;
+
+    if (!filename) {
+      console.error('Please provide a filename using --filename.');
+      process.exit(1);
+    }
+
+    try {
+      const fileStream = fs.createReadStream(filename);
+      const formData = new FormData();
+      formData.append('truncated_title.principals.tsv', fileStream);
+
+      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titleprincipals', formData, {
+        headers: {
+          ...formData.getHeaders(), // Important for multipart form data
+        },
+      })
+        .then((response) => {
+          console.log('Server Response:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error.message);
+        });
+    } catch (error) {
+      console.error('Error reading the file:', error.message);
+    }
+  });
+
+program
+  .command('newratings')
+  .option('-f, --filename <filename>', 'Specify the name of the CSV file')
+  .action((options) => {
+    const { filename } = options;
+
+    if (!filename) {
+      console.error('Please provide a filename using --filename.');
+      process.exit(1);
+    }
+
+    try {
+      const fileStream = fs.createReadStream(filename);
+      const formData = new FormData();
+      formData.append('truncated_title.ratings.tsv', fileStream);
+
+      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titleratings', formData, {
+        headers: {
+          ...formData.getHeaders(), // Important for multipart form data
+        },
+      })
+        .then((response) => {
+          console.log('Server Response:', response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error.message);
+        });
+    } catch (error) {
+      console.error('Error reading the file:', error.message);
     }
   });
 
