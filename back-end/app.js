@@ -35,7 +35,7 @@ app.use('/ntuaflix_api/admin/healthcheck', healthcheckRoute)
 const uploadRoute = require('./api/routes/admin/uploads')
 app.use('/ntuaflix_api/admin/upload', uploadRoute)
 
-//Handler for the database rest
+//Handler for the database reset
 const resetallRoute = require('./api/routes/admin/resetall')
 app.use('/ntuaflix_api/admin/resetall', resetallRoute)
 
@@ -47,36 +47,40 @@ app.use('/ntuaflix_api/info/title', titleRoute)
 const nameRoute = require('./api/routes/info/name')
 app.use('/ntuaflix_api/info/name', nameRoute)
 
-//Handler for the searchtitle endpoint
-const searchTitleRoute = require('./api/routes/info/searchtitle')
-app.use('/ntuaflix_api/searchtitle', searchTitleRoute)
+//======================== Body =============================================
 
-/*app.use('/ntuaflix_api', (req, res) => {
 //Handler for the searchname with body
 const searchNameRoute = require('./api/routes/info/searchname')
 app.use('/ntuaflix_api/info/searchname', searchNameRoute)
 
-//Handler for the searchname with query
-const qsearchNameRoute = require('./api/routes/info/qsearchname')
-app.use('/ntuaflix_api/searchname', qsearchNameRoute)
-
-//Handler for the searchname with body
+//Handler for the searchtitle with body
 const searchTitleRoute = require('./api/routes/info/searchtitle')
 app.use('/ntuaflix_api/info/searchtitle', searchTitleRoute)
 
-//Handler for the searchname with query
-const qsearchTitleRoute = require('./api/routes/info/qsearchtitle')
-app.use('/ntuaflix_api/searchtitle', qsearchTitleRoute)
-
-//Handler for the bygenre
+//Handler for the bygenre with body
 const byGenreRoute = require('./api/routes/info/bygenre')
 app.use('/ntuaflix_api/info/bygenre', byGenreRoute)
 
+//=========================== Query ==========================================
+
+//Handler for the searchname with query
+const querySearchNameRoute = require('./api/routes/query/searchname')
+app.use('/ntuaflix_api/searchname', querySearchNameRoute)
+
+//Handler for the searchtitle with query
+const querySearchTitleRoute = require('./api/routes/query/searchtitle')
+app.use('/ntuaflix_api/searchtitle', querySearchTitleRoute)
+
+//Handler for the bygenre with query
+const queryByGenreRoute = require('./api/routes/query/bygenre')
+app.use('/ntuaflix_api/bygenre', queryByGenreRoute)
+
+//==========================================================================
 app.use('/ntuaflix_api', (req, res) => {
   res.status(200).json({
     ntuaflix_api: "Welcome to the ntuaflix_api!"
   })
-})*/
+})
 
 app.use((req, res, next) => {
   const error = new Error('Endpoint implementation not found')

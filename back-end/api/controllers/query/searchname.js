@@ -1,15 +1,15 @@
-/*const TitlePrincipals = require('../../models/titleprincipals')
+const TitlePrincipals = require('../../models/titleprincipals')
 const NameBasics = require('../../models/namebasics')
 
 exports.GetSearchName = async (req, res) => {
     try {
         const namePart = req.query.namePart
 
-        if (!namePart) {
-            return res.status(400).json({
-                message: 'Missing namePart in the query parameters'
-            })
-        }
+        // if (!namePart) {
+        //     return res.status(400).json({
+        //         message: 'Missing namePart in the query parameters'
+        //     })
+        // }
 
         const regex = new RegExp(namePart)
 
@@ -44,4 +44,4 @@ exports.GetSearchName = async (req, res) => {
             error: 'Internal Server Error'
         })
     }
-}*/
+}

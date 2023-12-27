@@ -8,11 +8,11 @@ exports.GetSearchTitle = async (req, res) => {
     try {
         const titlePart = req.query.titlePart
 
-        if (!titlePart) {
-            return res.status(400).json({
-                message: 'Missing titlePart in the query parameters'
-            })
-        }
+        // if (!titlePart) {
+        //     return res.status(400).json({
+        //         message: 'Missing titlePart in the query parameters'
+        //     })
+        // }
 
         const regex = new RegExp(titlePart)
 
@@ -32,12 +32,12 @@ exports.GetSearchTitle = async (req, res) => {
             })) : []
 
             const principalList = titleprincipals ? await Promise.all (titleprincipals.map(async (titleprincipal) => {
-                    const principal = await NameBasics.findOne({ nconst: titleprincipal.nconst }).exec()
-                    return {
-                        nameID: principal.nconst,
-                        name: principal.primaryName,
-                        category: titleprincipal.category
-                    }
+                const principal = await NameBasics.findOne({ nconst: titleprincipal.nconst }).exec()
+                return {
+                    nameID: principal.nconst,
+                    name: principal.primaryName,
+                    category: titleprincipal.category
+                }
             })) : []
 
             const ratingObject = rating ? { avRating: rating.averageRating, nVotes: rating.numVotes } : {}
