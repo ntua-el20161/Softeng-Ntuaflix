@@ -1,4 +1,4 @@
-const TitlePrincipals = require('../../models/titleprincipals')
+/*const TitlePrincipals = require('../../models/titleprincipals')
 const NameBasics = require('../../models/namebasics')
 
 exports.GetSearchName = async (req, res) => {
@@ -44,4 +44,4 @@ exports.GetSearchName = async (req, res) => {
             error: 'Internal Server Error'
         })
     }
-}
+}*/

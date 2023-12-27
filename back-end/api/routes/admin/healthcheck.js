@@ -1,4 +1,4 @@
-// [GET]/admin/healthcheck endpoinτ
+// [GET]/admin/healthcheck endpoint
 
 const express = require('express')
 const { db, connectionString } = require('../../../db')
