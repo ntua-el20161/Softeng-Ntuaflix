@@ -19,6 +19,14 @@ app.use((req, res, next) => {
   next()
 })
 
+// #testing for body with get/post request
+// app.post('/ntuaflix_api', (req, res, next) => {
+//   console.log(req.body);
+//   res.status(201).json({
+//     message: 'All good'
+//   })
+// })
+
 //Handler for the healthcheck endpoint
 const healthcheckRoute = require('./api/routes/admin/healthcheck')
 app.use('/ntuaflix_api/admin/healthcheck', healthcheckRoute)

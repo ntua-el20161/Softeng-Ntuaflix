@@ -7,6 +7,9 @@ const NameBasics = require('../../models/namebasics')
 exports.SearchTitle = async (req, res) => {
     try {
       const titlePart = req.body.titlePart;
+      //mike
+      console.log(req.body);
+      //mike
         
       // Validate the input
       if (!titlePart) {
