@@ -3,6 +3,7 @@ const TitleAkas = require('../../models/titleakas')
 const TitlePrincipals = require('../../models/titleprincipals')
 const TitleRatings = require('../../models/titleratings')
 const NameBasics = require('../../models/namebasics')
+const json2csv = require('json2csv').Parser
 
 exports.SearchTitle = async (req, res) => {
     try {
@@ -64,7 +65,17 @@ exports.SearchTitle = async (req, res) => {
         };
       }));
 
-      res.status(200).json(response);
+      //format of the response based on the query parameter
+      const format = req.query.format;
+      if(!format || format === 'json') {
+          res.status(200).json(response);
+      } else {
+        const fields = ['titleID', 'type', 'originalTitle', 'titlePoster', 'startYear', 'genres', 'titleAkas', 'principals', 'rating']
+        const json2csvParser = new json2csv({ fields })
+        const csv = json2csvParser.parse(response)
+        res.header('Content-Type', 'text/csv')
+        res.status(200).send(csv)
+      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'SearchTitle: Internal Server Error' });

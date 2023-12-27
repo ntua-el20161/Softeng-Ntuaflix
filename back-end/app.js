@@ -41,9 +41,8 @@ app.use('/ntuaflix_api/info/name', nameRoute)
 
 //Handler for the searchtitle endpoint
 const searchTitleRoute = require('./api/routes/info/searchtitle')
-app.use('/ntuaflix_api/searchtitle', searchTitleRoute)
+app.use('/ntuaflix_api/info/searchtitle', searchTitleRoute)
 
-/*app.use('/ntuaflix_api', (req, res) => {
 //Handler for the searchname with body
 const searchNameRoute = require('./api/routes/info/searchname')
 app.use('/ntuaflix_api/info/searchname', searchNameRoute)
@@ -52,11 +51,7 @@ app.use('/ntuaflix_api/info/searchname', searchNameRoute)
 const qsearchNameRoute = require('./api/routes/info/qsearchname')
 app.use('/ntuaflix_api/searchname', qsearchNameRoute)
 
-//Handler for the searchname with body
-const searchTitleRoute = require('./api/routes/info/searchtitle')
-app.use('/ntuaflix_api/info/searchtitle', searchTitleRoute)
-
-//Handler for the searchname with query
+//Handler for the searctitle with query
 const qsearchTitleRoute = require('./api/routes/info/qsearchtitle')
 app.use('/ntuaflix_api/searchtitle', qsearchTitleRoute)
 
@@ -68,7 +63,7 @@ app.use('/ntuaflix_api', (req, res) => {
   res.status(200).json({
     ntuaflix_api: "Welcome to the ntuaflix_api!"
   })
-})*/
+})
 
 app.use((req, res, next) => {
   const error = new Error('Endpoint implementation not found')

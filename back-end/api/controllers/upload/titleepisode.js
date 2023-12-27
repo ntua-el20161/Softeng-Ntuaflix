@@ -1,4 +1,5 @@
 const titleEpisode = require('../../models/titleepisode')
+const json2csv = require('json2csv').Parser
 
 exports.UploadTitleEpisode = async (req, res) => {
     try {
@@ -28,12 +29,31 @@ exports.UploadTitleEpisode = async (req, res) => {
             episodeNumber: row[3],
         }))
 
+        let response;
+        let status;
         const alreadyUploaded = await titleEpisode.findOne({ $or: data })
-        if(alreadyUploaded) {
-            res.status(500).json({ error: 'TitleEpisode: File already uploaded' })
+        if(alreadyUploaded) {   
+            response = {
+                titleEpisode: 'File already uploaded'
+            }
+            status = 500
         } else {
             await titleEpisode.insertMany(data)
-            res.status(200).json({ message: 'TitleEpisode: File uploaded successfully' })
+            response = {
+                titleEpisode: 'File uploaded successfully'
+            }
+            status = 200
+        }
+        const format = req.query.format
+        if(!format || format === 'json') {
+            res.status(status).json(response)
+        } else {            
+            const field = 'titleEpisode'
+            const json2csvParser = new json2csv({ field })
+            const csv = json2csvParser.parse(response)
+            res.header('Content-Type', 'text/csv')
+
+            res.status(status).send(csv)
         }
     } catch (error) {
         console.error('Error uploading the file', error)
