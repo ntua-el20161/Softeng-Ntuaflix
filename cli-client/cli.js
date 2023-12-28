@@ -82,9 +82,13 @@ program
 program
   .command('resetall')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
-  .action(async () => {
+  .action(async (options) => {
     try {
-      const response = await axios.post('http://localhost:9876/ntuaflix_api/admin/resetall');
+      const { format } = options;
+      const response = await axios.post('http://localhost:9876/ntuaflix_api/admin/resetall', {
+        params: { format }
+      });
+      console.log(response);
 
       if (format === 'json') {
         console.log('Server Response:', response.data);
@@ -101,7 +105,7 @@ program
   .option('-f, --filename <filename>', 'Specify the name of the CSV file')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action((options) => {
-    const { filename } = options;
+    const { filename, format } = options;
 
     if (!filename) {
       console.error('Please provide a filename using --filename.');
@@ -113,10 +117,11 @@ program
       const formData = new FormData();
       formData.append('truncated_title.basics.tsv', fileStream);
 
-      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titlebasics', formData, {
+      axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titlebasics', formData,  {
+        params: { format },
         headers: {
           ...formData.getHeaders(), // Important for multipart form data
-        },
+        }
       })
         .then((response) => {
           if (format === 'json') {
@@ -138,7 +143,7 @@ program
   .option('-f, --filename <filename>', 'Specify the name of the CSV file')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action((options) => {
-    const { filename } = options;
+    const { filename, format } = options;
 
     if (!filename) {
       console.error('Please provide a filename using --filename.');
@@ -151,6 +156,7 @@ program
       formData.append('truncated_title.akas.tsv', fileStream);
 
       axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titleakas', formData, {
+        params: { format },
         headers: {
           ...formData.getHeaders(), // Important for multipart form data
         },
@@ -175,7 +181,7 @@ program
   .option('-f, --filename <filename>', 'Specify the name of the CSV file')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action((options) => {
-    const { filename } = options;
+    const { filename, format } = options;
 
     if (!filename) {
       console.error('Please provide a filename using --filename.');
@@ -188,6 +194,7 @@ program
       formData.append('truncated_name.basics.tsv', fileStream);
 
       axios.post('http://localhost:9876/ntuaflix_api/admin/upload/namebasics', formData, {
+        params: { format },
         headers: {
           ...formData.getHeaders(), // Important for multipart form data
         },
@@ -212,7 +219,7 @@ program
   .option('-f, --filename <filename>', 'Specify the name of the CSV file')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action((options) => {
-    const { filename } = options;
+    const { filename, format } = options;
 
     if (!filename) {
       console.error('Please provide a filename using --filename.');
@@ -225,6 +232,7 @@ program
       formData.append('truncated_title.crew.tsv', fileStream);
 
       axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titlecrew', formData, {
+        params: { format },
         headers: {
           ...formData.getHeaders(), // Important for multipart form data
         },
@@ -249,7 +257,7 @@ program
   .option('-f, --filename <filename>', 'Specify the name of the CSV file')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action((options) => {
-    const { filename } = options;
+    const { filename, format } = options;
 
     if (!filename) {
       console.error('Please provide a filename using --filename.');
@@ -262,6 +270,7 @@ program
       formData.append('truncated_title.episode.tsv', fileStream);
 
       axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titleepisode', formData, {
+        params: { format },
         headers: {
           ...formData.getHeaders(), // Important for multipart form data
         },
@@ -286,7 +295,7 @@ program
   .option('-f, --filename <filename>', 'Specify the name of the CSV file')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action((options) => {
-    const { filename } = options;
+    const { filename, format } = options;
 
     if (!filename) {
       console.error('Please provide a filename using --filename.');
@@ -299,6 +308,7 @@ program
       formData.append('truncated_title.principals.tsv', fileStream);
 
       axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titleprincipals', formData, {
+        params: { format },
         headers: {
           ...formData.getHeaders(), // Important for multipart form data
         },
@@ -323,7 +333,7 @@ program
   .option('-f, --filename <filename>', 'Specify the name of the CSV file')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action((options) => {
-    const { filename } = options;
+    const { filename, format } = options;
 
     if (!filename) {
       console.error('Please provide a filename using --filename.');
@@ -336,6 +346,7 @@ program
       formData.append('truncated_title.ratings.tsv', fileStream);
 
       axios.post('http://localhost:9876/ntuaflix_api/admin/upload/titleratings', formData, {
+        params: { format },
         headers: {
           ...formData.getHeaders(), // Important for multipart form data
         },
@@ -426,8 +437,8 @@ program
         return;
       }
 
-      const response = await axios.get('http://localhost:9876/ntuaflix_api/bygenre', {
-        params: { qgenre: genre, minRating: min, format },
+      const response = await axios.get('http://localhost:9876/ntuaflix_api/clibygenre', {
+        params: { qgenre: genre, minrating: min, format },
       });
 
       if (format === 'json') {
