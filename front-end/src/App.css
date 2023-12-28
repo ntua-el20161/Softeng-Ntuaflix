@@ -1,0 +1,16 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --navigation-color: #0f172a;
+  --primary-text-color: #f59e0b;
+  --background-color: #475569;
+  --card-bg-color: #0c0a09;
+}
+
+body {
+  background-color: var(--background-color);
+  overflow-x: hidden;
+}

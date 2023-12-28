@@ -1,0 +1,35 @@
+.dropdown {
+    display: inline-block;
+    margin-right: 8.4%;
+}
+
+.dropdown-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 25px;
+    width: 100px;
+    background-color: #a78bfa;
+}
+
+.dropdown-menu {
+    list-style-type: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #290b0b;
+    padding: 8px;
+    z-index: 1;
+}
+
+.dropdown-content button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+.dropdown-content button:hover {
+    background-color: #a78bfa;
+}

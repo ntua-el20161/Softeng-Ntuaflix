@@ -1,0 +1,6 @@
+.main {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 8rem 2rem 2rem 6rem;
+}

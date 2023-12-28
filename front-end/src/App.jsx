@@ -1,40 +1,85 @@
-import { useState } from 'react'
-import { MyDropDownMenu } from './components/MyDropDownMenu'
+import './App.css'
+
+import { DropDownMenu } from './components/DropDownMenu'
+import { Logo } from './components/Logo'
+import { Main } from './components/Main'
+import { NameCard } from './components/NameCard'
+import { NavBar } from './components/NavBar'
 import { SearchBar } from './components/SearchBar'
-import { SearchResultsList } from './components/SearchResultsList'
+import { TitleCard } from './components/TitleCard'
+import { useEffect, useState } from 'react'
+import { bg_URL, qsn_URL, qst_URL } from './apiConfig'
+import axios from 'axios'
 
 function App() {
 
-  const [results, setResults] = useState([]) //set search results
-  const [openMenu, setOpenMenu] = useState(false) //open or close the title-name menu
-  const [option, setOption] = useState('Titles') // set search options from the title-name menu
+  const options = ['Titles', 'Contributors']
+  const genres = ['Genres', 'Comedy', 'Horror']
+  const [query, setQuery] = useState('')
+  const [titles, setTitles] = useState([])
+  const [names, setNames] = useState([])
+  const [option, setOption] = useState('Titles')
+  const [genre, setGenre] = useState('Genres')
+  const [dataFetched, setDataFetched] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if(!dataFetched) {
+        console.log('Effect is running with values:', { genre, option, query })
+        try {
+          if (genre === 'Genres') {
+            if (option === 'Titles') {
+              const response = await axios.get(qst_URL, { params: { titlePart:  query } })
+              setTitles(response.data.titles)
+              console.log('titles updated based on query')
+            } else {
+              const response = await axios.get(qsn_URL, { params: { namePart: query } })
+              setNames(response.data.names)
+              console.log('names updated based on query')
+            }
+          } else {
+              const response = await axios.get(bg_URL, { params: { qgenre: genre } })
+              setTitles(response.data.titles)
+              console.log('titles updated based on genre')
+          }
+          setDataFetched()
+        } catch (error) {
+          console.error('API request failed:', error.response?.status, error.response?.data)
+          throw error
+        }
+      }
+    }
+    fetchData()
+  }, [genre, option, query, dataFetched])
 
   return (
     <div className="App">
-      <nav className="navbar navbar-expand-lg bg-body-tertiary navbar sticky-top bg-body-tertiary" data-bs-theme="dark">
-        <a className="navbar-brand" href="#">Ntuaflix</a>
-        <div className ="container-center d-flex justify-content-center-between align-items-center">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            style={{ minWidth: "100px" }}
-            onClick={() => setOpenMenu((prev) => !prev)}
-          >
-            {option}
-          </button>
-          {openMenu && <MyDropDownMenu setOption={setOption} />}
-          <SearchBar setResults={setResults} option={option} />
-        </div>
-        <button className="navbar-toggler justify-content-center active">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-      </nav>
-      <div className="container-fluid">
-        <SearchResultsList results={results} option={option}/>
-      </div>
+      <NavBar>
+        <Logo/>
+        <SearchBar setQuery={setQuery}/>
+        <DropDownMenu value={'Titles'} options={options} setOpt={setOption}/>
+        <DropDownMenu value={'Genres'} options={genres} setOpt={setGenre}/>
+      </NavBar>
+
+      <Main>
+          {
+            option === 'Titles' || genre!=='Genres'? (
+              titles && titles.length > 0 ? (
+                titles.map((title) => (
+                  <TitleCard key={title.titleID} title={title}/>
+              ))) : (
+                <p>No titles found... &#9829;</p>
+              )
+              ) : (
+              names && names.length > 0 ? (
+                names.map((name) => (
+                  <NameCard key={name.nameID} nm={name}/>
+              ))) : (
+                <p>No contributors found... &#9829;</p>
+              )
+            )
+          }
+      </Main>
     </div>
   )
 }
