@@ -40,6 +40,7 @@ exports.GetTitleByGenre = async (req, res) => {
                 
                 return {
                     titleID: titleByGenre.tconst,
+                    type: titleByGenre.titleType,
                     originalTitle: titleByGenre.originalTitle,
                     titlePoster: titleByGenre.img_url_asset,
                     startYear: titleByGenre.startYear,
