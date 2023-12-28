@@ -35,7 +35,7 @@ exports.UploadNameBasics = async (req, res) => {
         let response;
         let status;
         const alreadyUploaded = await nameBasics.findOne({ $or: data })
-        if(alreadyUploaded) {   
+        if(alreadyUploaded) {
             response = {
                 nameBasics: 'File already uploaded'
             }
@@ -52,7 +52,7 @@ exports.UploadNameBasics = async (req, res) => {
         const format = req.query.format
         if(!format || format === 'json') {
             res.status(status).json(response)
-        } else {            
+        } else {
             const field = 'nameBasics'
             const json2csvParser = new json2csv({ field })
             const csv = json2csvParser.parse(response)

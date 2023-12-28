@@ -1,5 +1,8 @@
 import './App.css'
 
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { bg_URL, qsn_URL, qst_URL } from './apiConfig'
 import { DropDownMenu } from './components/DropDownMenu'
 import { Logo } from './components/Logo'
 import { Main } from './components/Main'
@@ -7,9 +10,6 @@ import { NameCard } from './components/NameCard'
 import { NavBar } from './components/NavBar'
 import { SearchBar } from './components/SearchBar'
 import { TitleCard } from './components/TitleCard'
-import { useEffect, useState } from 'react'
-import { bg_URL, qsn_URL, qst_URL } from './apiConfig'
-import axios from 'axios'
 
 function App() {
 
@@ -30,6 +30,7 @@ function App() {
             const response = await axios.get(qst_URL, { params: { titlePart:  query } })
             setTitles(response.data)
             console.log('titles updated based on query')
+            console.log(response)
             console.log(response.data)
           } else {
             const response = await axios.get(qsn_URL, { params: { namePart: query } })
