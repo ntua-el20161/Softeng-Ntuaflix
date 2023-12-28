@@ -71,7 +71,7 @@ function App() {
               <p>Loading... &#9829;</p>
             )
           ) : (
-            <p>No title found. &#9829;</p>
+            <p>No title found. &#128546;</p>
         )) : (
           names ? (
             names.length > 0 ? (
@@ -82,9 +82,9 @@ function App() {
               <p>Loading... &#9829;</p>
             )
           ) : (
-            <p>No contributor found &#9829;</p>
+            <p>No contributor found &#128546;</p>
           ))}
-    </Main>
+      </Main>
     </div>
   )
 }

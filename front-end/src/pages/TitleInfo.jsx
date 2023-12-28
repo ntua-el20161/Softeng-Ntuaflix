@@ -62,7 +62,7 @@ const TitleInfo = () => {
                                     </span>
                                 ))
                             ) : (
-                                <span>No genres available</span>
+                                <span>No genres available &#128546;</span>
                             )}
                         </p>
                         <p>Akas: {
@@ -74,7 +74,7 @@ const TitleInfo = () => {
                                     </span>
                                 ))
                             ) : (
-                                <span>No Akas available</span>
+                                <span>No Akas available &#128546;</span>
                             )}
                         </p>
                         <p>Contributors: {
@@ -88,7 +88,7 @@ const TitleInfo = () => {
                                     </span>
                                 ))
                             ) : (
-                                <span>No Contributors available</span>
+                                <span>No Contributors available &#128546;</span>
                             )}
                         </p>
                         {title.rating && typeof title.rating === 'object' && Object.keys(title.rating).length > 0 ? (
@@ -97,7 +97,7 @@ const TitleInfo = () => {
                             <p className="info-label">Votes: <span>{title.rating.nVotes}</span></p>
                             </>
                         ):(
-                            <span>No Rating available</span>
+                            <span>No Rating available &#128546;</span>
                         )}
                     </div>
                 </>
