@@ -4,6 +4,7 @@ const program = require('commander');
 const axios = require('axios').default;
 const fs = require('fs');
 const FormData = require('form-data');
+const json2csv = require('json2csv').Parser
 
 program
   .command('healthcheck')
@@ -86,13 +87,16 @@ program
     try {
       const { format } = options;
       const response = await axios.post('http://localhost:9876/ntuaflix_api/admin/resetall', {
-        params: { format }
+        params: { format: format }
       });
 
       if (format === 'json') {
         console.log('Server Response:', response.data);
       } else {
-        console.log('CSV Output:', response.data);
+        const field = 'status';
+        const json2csvParser = new json2csv({ field });
+        const csv = json2csvParser.parse(response.data);
+        console.log('CSV Output:', csv);
       }
     } catch (error) {
       console.error('Error:', error.message);
