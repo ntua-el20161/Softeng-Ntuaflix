@@ -1,4 +1,7 @@
 .search-bar {
-    height: 25px;
+    /* height: 0px; */
     width: 30%;
+    height: 25px;
+    padding: 0px 5px 0px 5px;
+    border-radius: 25px;
   }

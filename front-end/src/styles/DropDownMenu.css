@@ -10,6 +10,12 @@
     height: 25px;
     width: 100px;
     background-color: #a78bfa;
+    border-radius: 5px;
+}
+
+.dropdown-button:hover {
+    background-color: violet;
+    color: aliceblue;
 }
 
 .dropdown-menu {
@@ -17,7 +23,7 @@
     position: absolute;
     background-color: white;
     border: 1px solid #290b0b;
-    padding: 8px;
+    width: 100px;
     z-index: 1;
 }
 
@@ -32,4 +38,5 @@
 
 .dropdown-content button:hover {
     background-color: #a78bfa;
+    color: aliceblue;
 }
