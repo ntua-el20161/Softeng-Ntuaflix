@@ -88,7 +88,6 @@ program
       const response = await axios.post('http://localhost:9876/ntuaflix_api/admin/resetall', {
         params: { format }
       });
-      console.log(response);
 
       if (format === 'json') {
         console.log('Server Response:', response.data);
