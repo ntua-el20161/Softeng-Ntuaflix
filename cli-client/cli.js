@@ -313,4 +313,60 @@ program
     }
   });
 
+program
+  .command('searchname')
+  .description('Search for names containing specified text')
+  .option('-t, --namePart <namePart>', 'Specify the text to search for in names')
+  .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
+  .action(async (options) => {
+    try {
+      const { titlePart, format } = options;
+
+      if (!titlePart) {
+        console.error('Please provide a namePart using --namePart.');
+        return;
+      }
+
+      const response = await axios.get('http://localhost:9876/ntuaflix_api/searchname', {
+        params: { namePart: titlePart, format },
+      });
+
+      if (format === 'json') {
+        console.log('Search Results:', response.data);
+      } else {
+        console.log('CSV Output:', response.data);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  });
+
+program
+  .command('searchtitle')
+  .description('Search for titles containing specified text')
+  .option('-t, --titlePart <titlePart>', 'Specify the text to search for in titles')
+  .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
+  .action(async (options) => {
+    try {
+      const { titlePart, format } = options;
+
+      if (!titlePart) {
+        console.error('Please provide a titlePart using --titlePart.');
+        return;
+      }
+
+      const response = await axios.get('http://localhost:9876/ntuaflix_api/searchtitle', {
+        params: { namePart: titlePart, format },
+      });
+
+      if (format === 'json') {
+        console.log('Search Results:', response.data);
+      } else {
+        console.log('CSV Output:', response.data);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  });
+
 program.parse(process.argv);
