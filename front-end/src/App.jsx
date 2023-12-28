@@ -30,15 +30,19 @@ function App() {
             const response = await axios.get(qst_URL, { params: { titlePart:  query } })
             setTitles(response.data.titles)
             console.log('titles updated based on query')
+            console.log(response.data.titles)
+            console.log(qst_URL)
           } else {
             const response = await axios.get(qsn_URL, { params: { namePart: query } })
             setNames(response.data.names)
             console.log('names updated based on query')
+            console.log(response.data.names)
           }
         } else {
             const response = await axios.get(bg_URL, { params: { qgenre: genre } })
             setTitles(response.data.titles)
             console.log('titles updated based on genre')
+            console.log(response.data.titles)
         }
       } catch (error) {
         console.error('API request failed:', error.response?.status, error.response?.data)
@@ -58,23 +62,30 @@ function App() {
       </NavBar>
 
       <Main>
+        <>
           {
-            option === 'Titles' || genre!=='Genres'? (
-              titles && titles.length > 0 ? (
-                titles.map((title) => (
-                  <TitleCard key={title.titleID} title={title}/>
-              ))) : (
-                <p>No titles found... &#9829;</p>
-              )
+            option === 'Titles' || genre !== 'Genres' ? (
+              titles ? (
+                titles.length > 0 ? (
+                  titles.map((title) => (
+                    <TitleCard key={title.titleID} title={title}/>
+                  ))) : (
+                    <p>Loading... &#9829;</p>
+                  ) : (
+                  <p>No title found. &#128546;</p>
+                )
               ) : (
-              names && names.length > 0 ? (
-                names.map((name) => (
-                  <NameCard key={name.nameID} nm={name}/>
-              ))) : (
-                <p>No contributors found... &#9829;</p>
+              names ? (
+                names.length > 0 ? (
+                  names.map((name) => (
+                    <NameCard key={name.nameID} nm={name}/>
+                  ))) : (
+                  <p>Loading... &#9829;</p>
+                )
               )
             )
           }
+          </>
       </Main>
     </div>
   )
