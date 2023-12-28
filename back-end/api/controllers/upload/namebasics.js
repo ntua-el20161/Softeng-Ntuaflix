@@ -57,7 +57,6 @@ exports.UploadNameBasics = async (req, res) => {
             const json2csvParser = new json2csv({ field })
             const csv = json2csvParser.parse(response)
             res.header('Content-Type', 'text/csv')
-
             res.status(status).send(csv)
         }
     } catch (error) {
