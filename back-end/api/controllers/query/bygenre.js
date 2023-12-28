@@ -3,6 +3,9 @@ const TitleRatings = require('../../models/titleratings')
 const NameBasics = require('../../models/namebasics')
 const TitleAkas = require('../../models/titleakas')
 const TitleBasics = require('../../models/titlebasics')
+const json2csv = require('json2csv').Parser
+
+//TODO: add type field to the response
 
 exports.GetTitleByGenre = async (req, res) => {
     try {
@@ -38,6 +41,7 @@ exports.GetTitleByGenre = async (req, res) => {
                 
                 return {
                     titleID: titleByGenre.tconst,
+                    type: titleByGenre.titleType,
                     originalTitle: titleByGenre.originalTitle,
                     titlePoster: titleByGenre.img_url_asset,
                     startYear: titleByGenre.startYear,
@@ -52,9 +56,17 @@ exports.GetTitleByGenre = async (req, res) => {
             }
         })).then(filteredTitles => filteredTitles.filter(title => title !== null)) : []
 
-        res.status(200).json({
-            titles: titles,
-        })
+        //format of the response based on the query parameter
+        const format = req.query.format;
+        if(!format || format === 'json') {
+            res.status(200).json(titles);
+        } else {
+            const fields = ['titleID', 'type', 'originalTitle', 'titlePoster', 'startYear', 'genres', 'titleAkas', 'principals', 'rating']
+            const json2csvParser = new json2csv({ fields })
+            const csv = json2csvParser.parse(titles)
+            res.header('Content-Type', 'text/csv')
+            res.status(200).send(csv)
+        }
     } catch (error) {
         console.error('Error:', error)
         res.status(500).json({

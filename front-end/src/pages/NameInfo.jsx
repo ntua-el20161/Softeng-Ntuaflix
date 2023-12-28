@@ -1,5 +1,6 @@
+import '../styles/Info.css'
 import {useState, useEffect} from 'react'
-import {useParams, useNavigate} from 'react-router-dom'
+import {Link, useParams, useNavigate} from 'react-router-dom'
 import {nm_URL} from '../apiConfig'
 import axios from 'axios'
 import Img from '../logo.svg'
@@ -43,21 +44,24 @@ const NameInfo = () => {
             {name ? (
                 Object.keys(name).length > 0 ? (
                 <>
-                    <div className="header">{name.name}</div>
+                    <div className="info-title">{name.name}</div>
                     <div className="info-image-container">
-                        <img className="info-image" src={Img} alt="Default"></img>
+                        <img className="info-img" src={Img} alt="Default"></img>
                     </div>
                     <div className="info-details">
-                        <p>ID: <span>{name.nameID}</span></p>
+                        {/* <p>ID: <span>{name.nameID}</span></p> */}
                         <p>Name: <span>{name.name}</span></p>
                         <p>Birth Year: <span>{name.birthYr}</span></p>
                         <p>Death Year: <span>{name.deathYr}</span></p>
                         <p>Profession: <span>{name.profession}</span></p>
-                        <p>Categories: {name.nameTitles && name.nameTitles.length > 0 ? (
+                        <p>Known For: {
+                            name.nameTitles && name.nameTitles.length > 0 ? (
                                 name.nameTitles.map((nameTitle, index) => (
-                                    <span key={index}>
-                                        {nameTitle.category}
-                                        {index !== name.nameTitles.length - 1 ? ', ' : ''}
+                                    <span className="info-button-container" key={index}>
+                                        <Link to={`/title/${nameTitle.titleID}`}>
+                                            <button className="info-button">{nameTitle.titleID} : {nameTitle.category}</button>
+                                        </Link>
+                                        {/* {index !== name.nameTitles.length - 1 ? ', ' : ''} */}
                                     </span>
                                 ))
                             ) : (
@@ -67,10 +71,10 @@ const NameInfo = () => {
                     </div>
                 </>
                 ):(
-                    <div className="title">Loading... &#9829;</div>
+                    <div className="info-title">Loading... &#9829;</div>
                 )
             ) : (
-                <div className="title">No Contributor found. &#128546;</div>
+                <div className="info-title">No Contributor found. &#128546;</div>
             )}
         </div>
         </>
