@@ -34,13 +34,13 @@ function App() {
             console.log(response.data)
           } else {
             const response = await axios.get(qsn_URL, { params: { namePart: query } })
-            setNames(response.data.names)
+            setNames(response.data)
             console.log('names updated based on query')
             console.log(response.data)
           }
         } else {
             const response = await axios.get(bg_URL, { params: { qgenre: genre } })
-            setTitles(response.data.titles)
+            setTitles(response.data)
             console.log('titles updated based on genre')
             console.log(response.data)
         }
