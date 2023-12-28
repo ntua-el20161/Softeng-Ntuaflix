@@ -28,21 +28,20 @@ function App() {
         if (genre === 'Genres') {
           if (option === 'Titles') {
             const response = await axios.get(qst_URL, { params: { titlePart:  query } })
-            setTitles(response.data.titles)
+            setTitles(response.data)
             console.log('titles updated based on query')
-            console.log(response.data.titles)
-            console.log(qst_URL)
+            console.log(response.data)
           } else {
             const response = await axios.get(qsn_URL, { params: { namePart: query } })
             setNames(response.data.names)
             console.log('names updated based on query')
-            console.log(response.data.names)
+            console.log(response.data)
           }
         } else {
             const response = await axios.get(bg_URL, { params: { qgenre: genre } })
             setTitles(response.data.titles)
             console.log('titles updated based on genre')
-            console.log(response.data.titles)
+            console.log(response.data)
         }
       } catch (error) {
         console.error('API request failed:', error.response?.status, error.response?.data)
@@ -62,30 +61,29 @@ function App() {
       </NavBar>
 
       <Main>
-        <>
-          {
-            option === 'Titles' || genre !== 'Genres' ? (
-              titles ? (
-                titles.length > 0 ? (
-                  titles.map((title) => (
-                    <TitleCard key={title.titleID} title={title}/>
-                  ))) : (
-                    <p>Loading... &#9829;</p>
-                  ) : (
-                  <p>No title found. &#128546;</p>
-                )
-              ) : (
-              names ? (
-                names.length > 0 ? (
-                  names.map((name) => (
-                    <NameCard key={name.nameID} nm={name}/>
-                  ))) : (
-                  <p>Loading... &#9829;</p>
-                )
-              )
+        {option === 'Titles' || genre !== 'Genres' ? (
+          titles ? (
+            titles.length > 0 ? (
+              titles.map((title) => (
+                <TitleCard key={title.titleID} title={title}/>
+              ))
+            ) : (
+              <p>Loading... &#9829;</p>
             )
-          }
-          </>
+          ) : (
+            <p>No title found. &#128546;</p>
+        )) : (
+          names ? (
+            names.length > 0 ? (
+              names.map((name) => (
+                <NameCard key={name.nameID} nm={name}/>
+              ))
+            ) : (
+              <p>Loading... &#9829;</p>
+            )
+          ) : (
+            <p>No contributor found &#128546;</p>
+          ))}
       </Main>
     </div>
   )

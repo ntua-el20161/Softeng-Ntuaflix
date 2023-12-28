@@ -65,7 +65,7 @@ const NameInfo = () => {
                                     </span>
                                 ))
                             ) : (
-                                <span>No categories available</span>
+                                <span>No categories available &#128546;</span>
                             )}
                         </p>
                     </div>
