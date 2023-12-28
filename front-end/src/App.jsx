@@ -20,34 +20,37 @@ function App() {
   const [names, setNames] = useState([])
   const [option, setOption] = useState('Titles')
   const [genre, setGenre] = useState('Genres')
+  const [dataFetched, setDataFetched] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('Effect is running with values:', { genre, option, query })
-      try {
-        if (genre === 'Genres') {
-          if (option === 'Titles') {
-            const response = await axios.get(qst_URL, { params: { titlePart:  query } })
-            setTitles(response.data.titles)
-            console.log('titles updated based on query')
+      if(!dataFetched) {
+        console.log('Effect is running with values:', { genre, option, query })
+        try {
+          if (genre === 'Genres') {
+            if (option === 'Titles') {
+              const response = await axios.get(qst_URL, { params: { titlePart:  query } })
+              setTitles(response.data.titles)
+              console.log('titles updated based on query')
+            } else {
+              const response = await axios.get(qsn_URL, { params: { namePart: query } })
+              setNames(response.data.names)
+              console.log('names updated based on query')
+            }
           } else {
-            const response = await axios.get(qsn_URL, { params: { namePart: query } })
-            setNames(response.data.names)
-            console.log('names updated based on query')
+              const response = await axios.get(bg_URL, { params: { qgenre: genre } })
+              setTitles(response.data.titles)
+              console.log('titles updated based on genre')
           }
-        } else {
-            const response = await axios.get(bg_URL, { params: { qgenre: genre } })
-            setTitles(response.data.titles)
-            console.log('titles updated based on genre')
+          setDataFetched()
+        } catch (error) {
+          console.error('API request failed:', error.response?.status, error.response?.data)
+          throw error
         }
-      } catch (error) {
-        console.error('API request failed:', error.response?.status, error.response?.data)
-        throw error
       }
     }
-
     fetchData()
-  }, [genre, option, query])
+  }, [genre, option, query, dataFetched])
 
   return (
     <div className="App">

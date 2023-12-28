@@ -39,35 +39,38 @@ const NameInfo = () => {
         <NavBar>
             <Logo/>
         </NavBar>
-        <div className="info">
+        <div className="info-container">
             {name ? (
                 Object.keys(name).length > 0 ? (
                 <>
-                    <h2>{name.name}</h2>
-                    <img src={Img} alt="Default"></img>
-                    <p>ID: {name.nameID}</p>
-                    <p>Name: {name.name}</p>
-                    <p>Birth Year: {name.birthYr}</p>
-                    <p>Death Year: {name.deathYr}</p>
-                    <p>Profession: {name.profession}</p>
-                    <p>
-                        Categories: {name.nameTitles && name.nameTitles.length > 0 ? (
-                            name.nameTitles.map((nameTitle, index) => (
-                                <span key={index}>
-                                    {nameTitle.category}
-                                    {index !== name.nameTitles.length - 1 ? ', ' : ''}
-                                </span>
-                            ))
-                        ) : (
-                            <span>No categories available</span>
-                        )}
-                    </p>
+                    <div className="header">{name.name}</div>
+                    <div className="info-image-container">
+                        <img className="info-image" src={Img} alt="Default"></img>
+                    </div>
+                    <div className="info-details">
+                        <p>ID: <span>{name.nameID}</span></p>
+                        <p>Name: <span>{name.name}</span></p>
+                        <p>Birth Year: <span>{name.birthYr}</span></p>
+                        <p>Death Year: <span>{name.deathYr}</span></p>
+                        <p>Profession: <span>{name.profession}</span></p>
+                        <p>Categories: {name.nameTitles && name.nameTitles.length > 0 ? (
+                                name.nameTitles.map((nameTitle, index) => (
+                                    <span key={index}>
+                                        {nameTitle.category}
+                                        {index !== name.nameTitles.length - 1 ? ', ' : ''}
+                                    </span>
+                                ))
+                            ) : (
+                                <span>No categories available</span>
+                            )}
+                        </p>
+                    </div>
                 </>
                 ):(
-                    <h2>Loading... &#9829;</h2>
+                    <div className="title">Loading... &#9829;</div>
                 )
             ) : (
-                <h2>No Contributor found. &#128546;</h2>
+                <div className="title">No Contributor found. &#128546;</div>
             )}
         </div>
         </>

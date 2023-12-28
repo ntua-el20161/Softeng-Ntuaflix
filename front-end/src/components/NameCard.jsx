@@ -1,4 +1,4 @@
-import '../styles/TitleCard.css'
+import '../styles/Card.css'
 import Img from '../logo.svg'
 import {Link} from 'react-router-dom'
 
@@ -20,7 +20,7 @@ export const NameCard = ({nm}) => {
                     <span className="title">{name}</span>
                 </div>
                 <div>
-                    <span className="type">Profession: {profession}</span>
+                    <span className="info">Profession: {profession}</span>
                 </div>
                 <div>
                     <Link to={`/name/${nameID}`} className="view-info-button">ViewInfo</Link>

@@ -1,4 +1,4 @@
-import '../styles/TitleCard.css'
+import '../styles/Card.css'
 import Img from '../logo.svg'
 import { Link } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ export const TitleCard = ({title}) => {
                     <span className="title">{originalTitle}</span>
                 </div>
                 <div>
-                    <span className="genre">Genre: {genres.map((genre, index) => <span key={index}>{genre.genreTitle}</span>)}</span>
+                    <span className="list">Genre: {genres.map((genre, index) => <span key={index}>{genre.genreTitle}</span>)}</span>
                 </div>
                 <div>
                     <Link to={`/title/${titleID}`} className="view-info-button">ViewInfo</Link>
