@@ -24,7 +24,6 @@ const NameInfo = () => {
         const getName = async () => {
             try {
                 const response = await axios.get(nm_URL + '/' + nameID)
-                console.log('Response:', response)
                 handleData(response.data)
             } catch (error) {
                 console.error('Error fetching title information', error)
@@ -59,13 +58,13 @@ const NameInfo = () => {
                                 name.nameTitles.map((nameTitle, index) => (
                                     <span className="info-button-container" key={index}>
                                         <Link to={`/title/${nameTitle.titleID}`}>
-                                            <button className="info-button">{nameTitle.titleID} : {nameTitle.category}</button>
+                                            <button className="info-button">{nameTitle.title}</button>
                                         </Link>
                                         {/* {index !== name.nameTitles.length - 1 ? ', ' : ''} */}
                                     </span>
                                 ))
                             ) : (
-                                <span>No categories available &#128546;</span>
+                                <span>No titles available &#128546;</span>
                             )}
                         </p>
                     </div>
