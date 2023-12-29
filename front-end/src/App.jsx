@@ -56,9 +56,11 @@ function App () {
     <div className="App">
       <NavBar>
         <Logo/>
+        <span>
         <SearchBar setQuery={setQuery}/>
         <DropDownMenu value={'Titles'} options={options} setOpt={setOption}/>
-        <DropDownMenu value={'Genres'} options={genres} setOpt={setGenre}/>
+        </span>
+        <DropDownMenu class="genres-menu" value={'Genres'} options={genres} setOpt={setGenre}/>
       </NavBar>
 
       <Main>
