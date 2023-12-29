@@ -2,7 +2,7 @@ import './App.css'
 
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { bg_URL, qsn_URL, qst_URL } from './apiConfig'
+import { bg_URL, qsn_URL, qst_URL} from './apiConfig'
 import { DropDownMenu } from './components/DropDownMenu'
 import { Logo } from './components/Logo'
 import { Main } from './components/Main'
@@ -11,15 +11,15 @@ import { NavBar } from './components/NavBar'
 import { SearchBar } from './components/SearchBar'
 import { TitleCard } from './components/TitleCard'
 
-function App() {
+function App () {
 
   const options = ['Titles', 'Contributors']
-  const genres = ['Genres', 'Comedy', 'Horror']
+  const genres = ["Genres", "Comedy","Short","Animation","Western","Horror","Documentary","Drama","Crime","Musical","Family","Action","Fantasy","Sci-Fi","Thriller","Romance","Music","\\N","Mystery","Sport","Biography","History","Adult","War","Adventure","News"]
+  const [genre, setGenre] = useState('Genres')
   const [query, setQuery] = useState('')
   const [titles, setTitles] = useState([])
   const [names, setNames] = useState([])
   const [option, setOption] = useState('Titles')
-  const [genre, setGenre] = useState('Genres')
 
   useEffect(() => {
     const fetchData = async () => {

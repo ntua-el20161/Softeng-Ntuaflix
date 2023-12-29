@@ -3,6 +3,30 @@
     margin-right: 8.4%;
 }
 
+select {
+    text-align: center;
+    padding: 8px;
+    font-size: 16px;
+    background-color: #a78bfa;
+    color: aliceblue;
+}
+
+select:hover {
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: violet;
+    color: aliceblue;
+}
+
+option {
+    background-color: #a78bfa;
+}
+
+option:hover {
+    background-color: violet;
+    color: aliceblue;
+}
+/*
 .dropdown-button {
     background: none;
     border: none;
@@ -39,4 +63,4 @@
 .dropdown-content button:hover {
     background-color: #a78bfa;
     color: aliceblue;
-}
+} */

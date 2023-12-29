@@ -1,33 +1,30 @@
+import {React, useState} from 'react'
+import PropTypes from 'prop-types'
 import '../styles/DropDownMenu.css'
-import { useState} from 'react'
 
-export const DropDownMenu = ({options, value, setOpt}) => {
-
-    const [openMenu, setOpenMenu] = useState(false)
-    const [option, setOption] = useState(value)
+export const DropDownMenu = ({ value, options, setOpt }) => {
+    const [selectedOption, setSelectedOption] = useState(value)
 
     const handleOptionClick = (opt) => {
-        setOption(opt)
-        setOpt(opt)
-        setOpenMenu(false)
+    setSelectedOption(opt)
+    setOpt(opt)
     }
 
     return (
         <div className="dropdown">
-            <button className="dropdown-button" type="button" onClick={()=>setOpenMenu((prev) => !prev)}>{option}</button>
-            {
-            openMenu &&
-            <ul className="dropdown-menu"> {
-                options && options.length > 0 &&
-                options.map((opt, index)=> {
-                    return (
-                        <li key={index} className="dropdown-content">
-                            <button onClick={() => handleOptionClick(opt)}>{opt}</button>
-                        </li>
-                    )
-                })}
-            </ul>
-            }
+            <select value={selectedOption} onChange={(e) => handleOptionClick(e.target.value)}>
+            {options.map((opt) => (
+                <option key={opt} value={opt}>
+                {opt}
+                </option>
+            ))}
+            </select>
         </div>
     )
+}
+
+DropDownMenu.propTypes = {
+    value: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
+    setOpt: PropTypes.func.isRequired,
 }
