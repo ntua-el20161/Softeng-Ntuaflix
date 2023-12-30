@@ -1,28 +1,36 @@
+// [GET]/admin/healthcheck endpoint
 
-/* [GET]/admin/healthcheck 
-    endpoint
-*/
-
-const express = require('express');
-const { db, connectionString } = require('../../../db');
-const mongoose = require('mongoose');
-const router = express.Router();
+const express = require('express')
+const { db, connectionString } = require('../../../db')
+const router = express.Router()
+const json2csv = require('json2csv').Parser
 
 router.get('/', (req, res, next) => {
-    let connectionStatus;
-
+    let connectionStatus
+    let status;
     if(db.readyState === 1) {
         connectionStatus = {
             status: 'OK',
-            dataconnection: connectionString 
-        };
+            dataconnection: connectionString
+        }
+        status = 200
     } else {
         connectionStatus = {
             status: 'failed',
             dataconnection: connectionString
-        };
+        }
+        status = 500
     }
-    res.status(200).json(connectionStatus);
+    const format = req.query.format;
+    if(!format || format === 'json') {
+        res.status(status).json(connectionStatus)
+    } else {
+        const fields = ['status', 'dataconnection']
+        const json2csvParser = new json2csv({ fields })
+        const csv = json2csvParser.parse(connectionStatus)
+        res.header('Content-Type', 'text/csv')
+        res.status(status).send(csv)
+    }
 })
 
-module.exports = router;
+module.exports = router

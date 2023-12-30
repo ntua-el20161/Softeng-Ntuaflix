@@ -1,0 +1,10 @@
+.logo{
+    margin-right: 30%;
+    color: white;
+    text-decoration: none;
+    font-size: xx-large;
+}
+
+.logo:hover {
+    color: red;
+}

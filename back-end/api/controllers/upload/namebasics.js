@@ -1,30 +1,27 @@
-const mongoose = require('mongoose');
-const nameBasics = require('../../models/namebasics');
+const nameBasics = require('../../models/namebasics')
+const json2csv = require('json2csv').Parser
 
 exports.UploadNameBasics = async (req, res) => {
     try {
 
         //check if there is a file selected for upload
         if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
+            return res.status(400).json({ error: 'No file uploaded' })
         }
 
         //Access the TSV data from the buffer
-        const tsvDataBuffer = req.file.buffer;
+        const tsvDataBuffer = req.file.buffer
     
         //A huge string containing the contents of the file
-        const tsvDataString = tsvDataBuffer.toString('utf8');
+        const tsvDataString = tsvDataBuffer.toString('utf8')
     
         //Parse the String accordingly
-        const rows = tsvDataString.split('\n').map(row => row.split('\t'));
+        const rows = tsvDataString.split('\n').map(row => row.split('\t'))
+        
+        //exclude headers from insertion
+        const headers = rows.shift()
 
-        const headers = rows.shift();
-
-        const collection = nameBasics;
-
-        /*associate each row generated 
-        with each field of the model
-        */
+        //associate each row generated with each field of the model
         const data = rows.map(row => ({
             nconst: row[0],
             primaryName: row[1],
@@ -33,17 +30,37 @@ exports.UploadNameBasics = async (req, res) => {
             primaryProfession: row[4],
             knownForTitles: row[5],
             img_url_asset: row[6]
-        }));
+        }))
 
-        const alreadyUploaded = await nameBasics.findOne({ $or: data });
+        let response;
+        let status;
+        const alreadyUploaded = await nameBasics.findOne({ $or: data })
         if(alreadyUploaded) {
-            res.status(500).json({ error: 'NameBasics: File already uploaded' })
+            response = {
+                nameBasics: 'File already uploaded'
+            }
+            status = 500
+            //res.status(200).send(message, File, uploaded, succesfully)
+            //res.status(500).json({ error: 'NameBasics: File already uploaded' })
         } else {
-            await nameBasics.insertMany(data);
-            res.status(200).json({ message: 'NameBasics: File uploaded successfully' })
+            await nameBasics.insertMany(data)
+            response = {
+                nameBasics: 'File uploaded successfully'
+            }
+            status = 200
+        }
+        const format = req.query.format
+        if(!format || format === 'json') {
+            res.status(status).json(response)
+        } else {
+            const field = 'nameBasics'
+            const json2csvParser = new json2csv({ field })
+            const csv = json2csvParser.parse(response)
+            res.header('Content-Type', 'text/csv')
+            res.status(status).send(csv)
         }
     } catch (error) {
-        console.error('Error uploading the file', error);
-        res.status(500).json({ error: 'Error uploading the file' });
+        console.error('Error uploading the file', error)
+        res.status(500).json({ error: 'Error uploading the file' })
     }
-}  
+}
