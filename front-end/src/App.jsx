@@ -27,10 +27,9 @@ function App () {
       try {
         if (genre === 'Genres') {
           if (option === 'Titles') {
-            const response = await axios.get(qst_URL, { params: { titlePart:  query } })
+            const response = await axios.get(qst_URL, { params: { titlePart: query } })
             setTitles(response.data)
             console.log('titles updated based on query')
-            console.log(response)
             console.log(response.data)
           } else {
             const response = await axios.get(qsn_URL, { params: { namePart: query } })
@@ -56,11 +55,13 @@ function App () {
     <div className="App">
       <NavBar>
         <Logo/>
-        <span>
-        <SearchBar setQuery={setQuery}/>
-        <DropDownMenu value={'Titles'} options={options} setOpt={setOption}/>
+        <span className="search-container">
+          <SearchBar setQuery={setQuery}/>
+          <DropDownMenu value={'Titles'} options={options} setOpt={setOption}/>
         </span>
-        <DropDownMenu class="genres-menu" value={'Genres'} options={genres} setOpt={setGenre}/>
+        <span className="genres-container">
+          <DropDownMenu value={'Genres'} options={genres} setOpt={setGenre}/>
+        </span>
       </NavBar>
 
       <Main>

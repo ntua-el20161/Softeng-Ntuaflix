@@ -14,3 +14,12 @@ body {
   background-color: var(--background-color);
   overflow-x: hidden;
 }
+
+.search-container {
+  margin-right: 10%;
+}
+
+.genres-container {
+  display: inline-block;
+  margin-left: 10%;
+}
