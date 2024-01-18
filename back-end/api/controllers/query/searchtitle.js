@@ -8,6 +8,7 @@ const json2csv = require('json2csv').Parser
 exports.GetSearchTitle = async (req, res) => {
     try {
         const titlePart = req.query.titlePart
+        // console.log(titlePart)
 
         // if (!titlePart) {
         //     return res.status(400).json({
@@ -16,8 +17,10 @@ exports.GetSearchTitle = async (req, res) => {
         // }
 
         const regex = new RegExp(titlePart)
+        // console.log(regex)
 
         const titles = await TitleBasics.find({ originalTitle: regex }).exec()
+        // console.log(titles)
 
         const response = titles ? await Promise.all (titles.map(async(title) => {
 

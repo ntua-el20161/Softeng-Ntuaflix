@@ -75,6 +75,18 @@ app.use('/ntuaflix_api/searchtitle', querySearchTitleRoute)
 const queryByGenreRoute = require('./api/routes/query/bygenre')
 app.use('/ntuaflix_api/bygenre', queryByGenreRoute)
 
+//Handler for the cli bygenre with query
+const cliByGenreRoute = require('./api/routes/query/clibygenre')
+app.use('/ntuaflix_api/clibygenre', cliByGenreRoute)
+
+//Handler for the getallgenres with query
+const getAllGenresRoute = require('./api/routes/query/allgenres')
+app.use('/ntuaflix_api/getallgenres', getAllGenresRoute)
+
+//Handler for the name/nameID with query
+const queryNameRoute = require('./api/routes/query/name')
+app.use('/ntuaflix_api/name', queryNameRoute)
+
 //==========================================================================
 app.use('/ntuaflix_api', (req, res) => {
   res.status(200).json({

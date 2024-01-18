@@ -5,7 +5,7 @@ const json2csv = require('json2csv').Parser
 exports.GetSearchName = async (req, res) => {
     try {
         const namePart = req.query.namePart
-
+        // console.log(namePart)
         // if (!namePart) {
         //     return res.status(400).json({
         //         message: 'Missing namePart in the query parameters'
@@ -13,9 +13,11 @@ exports.GetSearchName = async (req, res) => {
         // }
 
         const regex = new RegExp(namePart)
+        // console.log(regex)
 
         const names = await NameBasics.find({ primaryName: regex }).exec()
-
+        // console.log(names)
+        
         const nameList = names ? await Promise.all (names.map(async(principal) => {
 
             const nametitles = await TitlePrincipals.find({ nconst: principal.nconst }).exec()

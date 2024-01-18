@@ -3,4 +3,5 @@
     padding: 20px;
     position: fixed;
     background-color: #0f172a;
+    display: flex;
 }

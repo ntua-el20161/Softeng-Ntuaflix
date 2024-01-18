@@ -1,5 +1,8 @@
 import './App.css'
 
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { bg_URL, qsn_URL, qst_URL} from './apiConfig'
 import { DropDownMenu } from './components/DropDownMenu'
 import { Logo } from './components/Logo'
 import { Main } from './components/Main'
@@ -7,78 +10,84 @@ import { NameCard } from './components/NameCard'
 import { NavBar } from './components/NavBar'
 import { SearchBar } from './components/SearchBar'
 import { TitleCard } from './components/TitleCard'
-import { useEffect, useState } from 'react'
-import { bg_URL, qsn_URL, qst_URL } from './apiConfig'
-import axios from 'axios'
 
-function App() {
+function App () {
 
   const options = ['Titles', 'Contributors']
-  const genres = ['Genres', 'Comedy', 'Horror']
+  const genres = ["Genres", "Comedy","Short","Animation","Western","Horror","Documentary","Drama","Crime","Musical","Family","Action","Fantasy","Sci-Fi","Thriller","Romance","Music","\\N","Mystery","Sport","Biography","History","Adult","War","Adventure","News"]
+  const [genre, setGenre] = useState('Genres')
   const [query, setQuery] = useState('')
   const [titles, setTitles] = useState([])
   const [names, setNames] = useState([])
   const [option, setOption] = useState('Titles')
-  const [genre, setGenre] = useState('Genres')
-  const [dataFetched, setDataFetched] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
-      if(!dataFetched) {
-        console.log('Effect is running with values:', { genre, option, query })
-        try {
-          if (genre === 'Genres') {
-            if (option === 'Titles') {
-              const response = await axios.get(qst_URL, { params: { titlePart:  query } })
-              setTitles(response.data.titles)
-              console.log('titles updated based on query')
-            } else {
-              const response = await axios.get(qsn_URL, { params: { namePart: query } })
-              setNames(response.data.names)
-              console.log('names updated based on query')
-            }
+      console.log('Effect is running with values:', { genre, option, query })
+      try {
+        if (genre === 'Genres') {
+          if (option === 'Titles') {
+            const response = await axios.get(qst_URL, { params: { titlePart: query } })
+            setTitles(response.data)
+            console.log('titles updated based on query')
+            console.log(response.data)
           } else {
-              const response = await axios.get(bg_URL, { params: { qgenre: genre } })
-              setTitles(response.data.titles)
-              console.log('titles updated based on genre')
+            const response = await axios.get(qsn_URL, { params: { namePart: query } })
+            setNames(response.data)
+            console.log('names updated based on query')
+            console.log(response.data)
           }
-          setDataFetched()
-        } catch (error) {
-          console.error('API request failed:', error.response?.status, error.response?.data)
-          throw error
+        } else {
+            const response = await axios.get(bg_URL, { params: { qgenre: genre } })
+            setTitles(response.data)
+            console.log('titles updated based on genre')
+            console.log(response.data)
         }
+      } catch (error) {
+        console.error('API request failed:', error.response?.status, error.response?.data)
+        throw error
       }
     }
     fetchData()
-  }, [genre, option, query, dataFetched])
+  }, [genre, option, query])
 
   return (
     <div className="App">
       <NavBar>
         <Logo/>
-        <SearchBar setQuery={setQuery}/>
-        <DropDownMenu value={'Titles'} options={options} setOpt={setOption}/>
-        <DropDownMenu value={'Genres'} options={genres} setOpt={setGenre}/>
+        <span className="search-container">
+          <SearchBar setQuery={setQuery}/>
+          <DropDownMenu value={'Titles'} options={options} setOpt={setOption}/>
+        </span>
+        <span className="genres-container">
+          <DropDownMenu value={'Genres'} options={genres} setOpt={setGenre}/>
+        </span>
       </NavBar>
 
       <Main>
-          {
-            option === 'Titles' || genre!=='Genres'? (
-              titles && titles.length > 0 ? (
-                titles.map((title) => (
-                  <TitleCard key={title.titleID} title={title}/>
-              ))) : (
-                <p>No titles found... &#9829;</p>
-              )
-              ) : (
-              names && names.length > 0 ? (
-                names.map((name) => (
-                  <NameCard key={name.nameID} nm={name}/>
-              ))) : (
-                <p>No contributors found... &#9829;</p>
-              )
+        {option === 'Titles' || genre !== 'Genres' ? (
+          titles ? (
+            titles.length > 0 ? (
+              titles.map((title) => (
+                <TitleCard key={title.titleID} title={title}/>
+              ))
+            ) : (
+              <p>Loading... &#9829;</p>
             )
-          }
+          ) : (
+            <p>No title found. &#128546;</p>
+        )) : (
+          names ? (
+            names.length > 0 ? (
+              names.map((name) => (
+                <NameCard key={name.nameID} nm={name}/>
+              ))
+            ) : (
+              <p>Loading... &#9829;</p>
+            )
+          ) : (
+            <p>No contributor found &#128546;</p>
+          ))}
       </Main>
     </div>
   )
