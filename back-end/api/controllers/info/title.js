@@ -43,6 +43,7 @@ exports.GetTitle = async (req, res) => {
             originalTitle: result.originalTitle,
             titlePoster: result.img_url_asset,
             startYear: result.startYear,
+            endYear: result.endYear,
             genres: genreList,
             titleAkas: akaList,
             principals: principalList,
@@ -54,7 +55,7 @@ exports.GetTitle = async (req, res) => {
         if(!format || format === 'json') {
             res.status(200).json(response);
         } else {
-            const fields = ['titleID', 'type', 'originalTitle', 'titlePoster', 'startYear', 'genres', 'titleAkas', 'principals', 'rating']
+            const fields = ['titleID', 'type', 'originalTitle', 'titlePoster', 'startYear', 'endYear', 'genres', 'titleAkas', 'principals', 'rating']
             const json2csvParser = new json2csv({ fields })
             const csv = json2csvParser.parse(response)
             res.header('Content-Type', 'text/csv')

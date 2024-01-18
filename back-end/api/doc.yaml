@@ -1,0 +1,350 @@
+openapi: 3.0.2
+info:
+  title: ntuaflix API
+  description: A RESTful API for searching and viewing info of various cinematic titles
+  termsOfService: "http://swagger.io/terms/"
+  version: 1.0.0
+servers: 
+  - url: https://localhost:9876/ntuaflix_api
+paths:
+  /info/title/:titleID:
+    parameters:
+      - name: format
+        in: query
+        description: Response format (json or csv)
+        required: false
+        schema:
+          type: string
+          enum:
+            - json
+            - csv
+    get: 
+      summary: returns the info of a title based on the titleID 
+      responses:
+        '200':
+          description: an object with the title info in JSON or csv format
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/getTitle'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/getTitleCsv'
+  /info/searchtitle:
+    parameters:
+      - name: titlePart #swagger doesnt let us have a requestBody field on get
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: format
+        in: query
+        description: Response format (json or csv)
+        required: false
+        schema:
+          type: string
+          enum:
+            - json
+            - csv
+    get:
+      summary: returns a list of titles based on the search body
+      responses:
+        '200':
+          description: a list of titleObjects that are matching the search body
+          content:
+            application/json:
+              schema:
+                $ref:  '#/components/schemas/searchTitle'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/searchTitleCsv'
+  /info/bygenre:
+    parameters:
+      - name: format
+        in: query
+        description: Response format (json or csv)
+        required: false
+        schema:
+          type: string
+          enum:
+            - json
+            - csv
+    get:
+      summary: returns a list of titles based on the specified genre and minimum rating
+      responses:
+        '200':
+          description:  a list of titleObjects that are matching the qgenre and minrating in body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/byGenre'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/byGenreCsv'
+  
+  /info/name/:nameID:
+    parameters:
+      - name: format
+        in: query
+        description: Response format (json or csv)
+        required: false
+        schema:
+          type: string
+          enum:
+            - json
+            - csv
+    get: 
+      summary: returns the info of the person with the specific id
+      responses:
+        '200':
+          description: a nameObject containing info about the person with ID nconst 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getName'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/getNameCsv'
+  /info/searchname:
+    parameters:
+      - name: namePart #swagger doesnt let us have a requestBody field on get
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: format
+        in: query
+        description: Response format (json or csv)
+        required: false
+        schema:
+          type: string
+          enum:
+            - json
+            - csv
+    get:
+      summary: returns a list of names that are matching the body provided
+      responses:
+        '200':
+          description: a list of nameObjects 
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searchName'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/searchNameCsv'
+    
+components: 
+  schemas:
+  
+    searchName:
+      type: array
+      items: 
+        $ref: '#/components/schemas/getName'
+    searchNameCsv:
+      type: string
+      example: |
+        "nameID","name","namePoster","birthYr","deathYr","profession","nameTitles"
+        "nm0000123","George Clooney","https://image.tmdb.org/t/p/{width_variable}/4s3wI0bqOP7K3hhcmKqV6m3GYiQ.jpg","1961","\N","actor,producer,director","[{""titleID"":""tt0100718"",""category"":""actor""}]"
+        "nm0000666","Lili Taylor","https://image.tmdb.org/t/p/{width_variable}/if8rbaj1TXlzg0Oq4g0bpU3b5rh.jpg","1967","\N","actress,writer,soundtrack","[{""titleID"":""tt0100578"",""category"":""actress""}]"
+        "nm0000732","Danny Aiello","https://image.tmdb.org/t/p/{width_variable}/e7Q6hgWilShqGZ572ByWF9eshMm.jpg","1933","2019","actor,producer,soundtrack","[{""titleID"":""tt0081145"",""category"":""actor""}]"
+    byGenre:
+      type: array
+      items:
+        $ref: '#/components/schemas/getTitle'
+    byGenreCsv:
+      type: string
+      example: |
+        "titleID","type","originalTitle","titlePoster","startYear","endYear","genres","titleAkas","principals","rating"
+        "tt0000929","short","Klebolin klebt alles","\N","1990","\N","[{""genreTitle"":""Comedy""}]","[{""akaTitle"":""Willys Streiche: Klebolin klebt alles"",""regionAbbrev"":""DE""},{""akaTitle"":""Klebolin klebt alles"",""regionAbbrev"":""\\N""},{""akaTitle"":""Klebolin klebt alles"",""regionAbbrev"":""DE""}]","[{""nameID"":""nm0066941"",""name"":""Ernst Behmer"",""category"":""actor""},{""nameID"":""nm0170183"",""name"":""Victor Colani"",""category"":""actor""},{""nameID"":""nm0092290"",""name"":""Curt Bois"",""category"":""actor""},{""nameID"":""nm0093361"",""name"":""Heinrich Bolten-Baeckers"",""category"":""director""},{""nameID"":""nm1902148"",""name"":""Alfred Duskes"",""category"":""producer""},{""nameID"":""nm0667386"",""name"":""Charles Paulus"",""category"":""cinematographer""}]","5.3"
+        "tt0097436","short","Gisèle Kérozène","https://image.tmdb.org/t/p/{width_variable}/9XrFxCaBwyOxlP9sbFU2nZbiPyZ.jpg","1990","\N","[{""genreTitle"":""Comedy""}]","[{""akaTitle"":""Жизель Керозин"",""regionAbbrev"":""UA""},{""akaTitle"":""Gisèle Kérozène"",""regionAbbrev"":""FR""},{""akaTitle"":""Жизель Керозин"",""regionAbbrev"":""SUHH""},{""akaTitle"":""Gisèle Kérozène"",""regionAbbrev"":""\\N""}]","[{""nameID"":""nm0008895"",""name"":""Abel Aboualiten"",""category"":""actor""},{""nameID"":""nm2868215"",""name"":""Pascal Banos"",""category"":""actor""},{""nameID"":""nm2866182"",""name"":""Bob Fletchard"",""category"":""actor""},{""nameID"":""nm0468007"",""name"":""Jan Kounen"",""category"":""actor""},{""nameID"":""nm0207551"",""name"":""Carlo De Boutiny"",""category"":""writer""},{""nameID"":""nm4991229"",""name"":""Elsa Cayo"",""category"":""producer""},{""nameID"":""nm0487700"",""name"":""Jeanne Lapoirie"",""category"":""cinematographer""},{""nameID"":""nm0486213"",""name"":""Véronique Lange"",""category"":""editor""},{""nameID"":""nm4990324"",""name"":""Thierry Roubyn"",""category"":""editor""}]","6.0"
+    searchTitle:
+      type: array
+      items: 
+        $ref: '#/components/schemas/getTitle'
+    searchTitleCsv:
+      type: string
+      example: |
+        "titleID","type","originalTitle","titlePoster","startYear","endYear","genres","titleAkas","principals","rating"
+        "tt0099006","short","The Air Globes","\N","1990","\N","[{""genreTitle"":""Short""}]","[{""akaTitle"":""The Air Globes"",""regionAbbrev"":""US""},{""akaTitle"":""The Air Globes"",""regionAbbrev"":""\\N""}]","[{""nameID"":""nm0136603"",""name"":""Patricia Cardoso"",""category"":""director""}]","{""avRating"":""8.4"",""nVotes"":""14""}"
+        "tt0015414","movie","La tierra de los toros","https://image.tmdb.org/t/p/{width_variable}/hIPPcKfGfmr435bLWICRxPSfiDR.jpg","2000","\N","[{""genreTitle"":""\\N""}]","[{""akaTitle"":""La tierra de los toros"",""regionAbbrev"":""ES""},{""akaTitle"":""La tierra de los toros"",""regionAbbrev"":""\\N""},{""akaTitle"":""La terre des taureaux"",""regionAbbrev"":""FR""},{""akaTitle"":""The Land of the Bulls"",""regionAbbrev"":""XWW""},{""akaTitle"":""La Terre des taureaux"",""regionAbbrev"":""FR""}]","[{""nameID"":""nm0147437"",""name"":""Antonio Cañero"",""category"":""self""},{""nameID"":""nm0615736"",""name"":""Musidora"",""category"":""self""}]","{""avRating"":""5.2"",""nVotes"":""16""}"
+    getNameCsv:
+      type: string
+      example: |
+        "nameID","name","namePoster","birthYr","deathYr","profession","nameTitles"
+        "nm0000019","Federico Fellini","https://image.tmdb.org/t/p/{width_variable}/jH2VnHAuI0UbTWsnrjMPro0fC9j.jpg","1920","1993","writer,director,actor","[{""titleID"":""tt0098606"",""category"":""director""}]"
+      description: CSV response for getName
+    getName: 
+      type: object
+      properties:
+        nameID:
+          type: string
+        name:
+          type: string
+        namePoster:
+          type: string
+        birtYr:
+          type: string
+        deathYr:
+          type: string
+        profession:
+          type: string
+        nameTitles:
+          description: list with the titles in which the person has participated
+          type: object
+          properties:
+            titleID: 
+              type: string
+            category:
+              type: string
+      example: {
+          "nameID": "nm0000019",
+          "name": "Federico Fellini",
+          "namePoster": "https://image.tmdb.org/t/p/{width_variable}/jH2VnHAuI0UbTWsnrjMPro0fC9j.jpg",
+          "birthYr": "1920",
+          "deathYr": "1993",
+          "profession": "writer,director,actor",
+          "nameTitles": [
+              {
+                  "titleID": "tt0098606",
+                  "category": "director"
+              }
+          ]
+        }
+    getTitleCsv:
+      type: string
+      example: |
+        "titleID","type","originalTitle","titlePoster","startYear","endYear","genres","titleAkas","principals","rating"
+        "tt0000929","short","Klebolin klebt alles","\N","1990","\N","[{""genreTitle"":""Comedy""},{""genreTitle"":""Short""}]","[{""akaTitle"":""Willys Streiche: Klebolin klebt alles"",""regionAbbrev"":""DE""},{""akaTitle"":""Klebolin klebt alles"",""regionAbbrev"":""\\N""},{""akaTitle"":""Klebolin klebt alles"",""regionAbbrev"":""DE""}]","[{""nameID"":""nm0066941"",""name"":""Ernst Behmer"",""category"":""actor""},{""nameID"":""nm0170183"",""name"":""Victor Colani"",""category"":""actor""},{""nameID"":""nm0092290"",""name"":""Curt Bois"",""category"":""actor""},{""nameID"":""nm0093361"",""name"":""Heinrich Bolten-Baeckers"",""category"":""director""},{""nameID"":""nm1902148"",""name"":""Alfred Duskes"",""category"":""producer""},{""nameID"":""nm0667386"",""name"":""Charles Paulus"",""category"":""cinematographer""}]","{""avRating"":""5.3"",""nVotes"":""46""}"
+      description: CSV response for getTitle
+    getTitle:
+      type: object
+      properties:
+        titleID:
+          type: string
+        type:
+          type: string
+          description: type of the title (short, movie, tvEpisode)
+        originalTitle:
+          type: string
+          description: name of the original title
+        titlePoster:
+          type: string
+          description: url of the title image
+        startYear:
+          type: string
+          description: launch year
+        endYear: 
+          type: string
+        genres: 
+          type: array
+          items:
+            type: string
+          example: 
+            -genreTitle_1
+            -genreTitle_2
+          description: list of the title's genres
+        titleAkas:
+          type: array
+          items: 
+            type: object
+            properties:
+              akaTitle:
+                type: string
+                description: alternative name for this title
+              regionAbbrev:
+                type: string
+                description: region of the alt name
+        principals:
+          type: array
+          items: 
+            type: object
+            properties:
+              nameID: 
+                type: string
+              name:
+                type: string
+              category:
+                type: string
+          description: title principals
+        rating: 
+          type: object
+          properties:
+            avRating:
+             type: string
+             description: average rating
+            nVotes: 
+              type: string
+              description: number of votes
+      example: {
+          "titleID": "tt0000929",
+          "type": "short",
+          "originalTitle": "Klebolin klebt alles",
+          "titlePoster": "\\N",
+          "startYear": "1990",
+          "endYear": "\\N",
+          "genres": [
+              {
+                  "genreTitle": "Comedy"
+              },
+              {
+                  "genreTitle": "Short"
+              }
+          ],
+          "titleAkas": [
+              {
+                  "akaTitle": "Willys Streiche: Klebolin klebt alles",
+                  "regionAbbrev": "DE"
+              },
+              {
+                  "akaTitle": "Klebolin klebt alles",
+                  "regionAbbrev": "\\N"
+              },
+              {
+                  "akaTitle": "Klebolin klebt alles",
+                  "regionAbbrev": "DE"
+              }
+          ],
+          "principals": [
+              {
+                  "nameID": "nm0066941",
+                  "name": "Ernst Behmer",
+                  "category": "actor"
+              },
+              {
+                  "nameID": "nm0170183",
+                  "name": "Victor Colani",
+                  "category": "actor"
+              },
+              {
+                  "nameID": "nm0092290",
+                  "name": "Curt Bois",
+                  "category": "actor"
+              },
+              {
+                  "nameID": "nm0093361",
+                  "name": "Heinrich Bolten-Baeckers",
+                  "category": "director"
+              },
+              {
+                  "nameID": "nm1902148",
+                  "name": "Alfred Duskes",
+                  "category": "producer"
+              },
+              {
+                  "nameID": "nm0667386",
+                  "name": "Charles Paulus",
+                  "category": "cinematographer"
+              }
+          ],
+          "rating": {
+              "avRating": "5.3",
+              "nVotes": "46"
+          }
+        }
+
+    
+    
+          
+          
+            
