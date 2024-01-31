@@ -38,6 +38,10 @@ exports.GetTitleByGenre = async (req, res) => {
                         }
                 })) : []
                 
+                const ratingObject = { avRating: rating.averageRating, nVotes: rating.numVotes }
+                
+                const genreList = titleByGenre.genres.split(',').map(genre => ({ genreTitle: genre.trim() }))
+
                 return {
                     titleID: titleByGenre.tconst,
                     type: titleByGenre.titleType,
@@ -45,10 +49,10 @@ exports.GetTitleByGenre = async (req, res) => {
                     titlePoster: titleByGenre.img_url_asset,
                     startYear: titleByGenre.startYear,
                     endYear: titleByGenre.endYear,
-                    genres: [{ genreTitle: genre }],    //Edw den prepei na epistrefoume k ta ypoloipa genres?
+                    genres: genreList,
                     titleAkas: akaList,
                     principals: principalList,
-                    rating: rating.averageRating
+                    rating: ratingObject
                 }
             }
             else {

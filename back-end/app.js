@@ -88,12 +88,7 @@ const queryNameRoute = require('./api/routes/query/name')
 app.use('/ntuaflix_api/name', queryNameRoute)
 
 //==========================================================================
-app.use('/ntuaflix_api', (req, res) => {
-  res.status(200).json({
-    ntuaflix_api: "Welcome to the ntuaflix_api!"
-  })
-})
-
+  
 app.use((req, res, next) => {
   const error = new Error('Endpoint implementation not found')
   error.status = 404

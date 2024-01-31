@@ -15,7 +15,7 @@ exports.SearchTitle = async (req, res) => {
       }
     
       // Perform the database query to find titles matching the partial title
-      const results = await TitleBasics.find({ primaryTitle: { $regex: titlePart } })
+      const results = await TitleBasics.find({ originalTitle: { $regex: titlePart } })
       
       if (!results || results.length === 0) {
         return res.status(404).json({
