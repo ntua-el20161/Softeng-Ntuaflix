@@ -39,16 +39,21 @@ exports.GetTitleByGenre = async (req, res) => {
                     }
                 })) : []
                 
+                const ratingObject = { avRating: rating.averageRating, nVotes: rating.numVotes }
+
+                const genreList = titleByGenre.genres.split(',').map(genre => ({ genreTitle: genre.trim() }))
+
                 return {
                     titleID: titleByGenre.tconst,
                     type: titleByGenre.titleType,
                     originalTitle: titleByGenre.originalTitle,
                     titlePoster: titleByGenre.img_url_asset,
                     startYear: titleByGenre.startYear,
-                    genres: [{ genreTitle: genre }],
+                    endYear: titleByGenre.endYear,
+                    genres: genreList,
                     titleAkas: akaList,
                     principals: principalList,
-                    rating: rating.averageRating
+                    rating: ratingObject
                 }
             }
             else {
@@ -61,7 +66,7 @@ exports.GetTitleByGenre = async (req, res) => {
         if(!format || format === 'json') {
             res.status(200).json(titles);
         } else {
-            const fields = ['titleID', 'type', 'originalTitle', 'titlePoster', 'startYear', 'genres', 'titleAkas', 'principals', 'rating']
+            const fields = ['titleID', 'type', 'originalTitle', 'titlePoster', 'startYear', 'endYear','genres', 'titleAkas', 'principals', 'rating']
             const json2csvParser = new json2csv({ fields })
             const csv = json2csvParser.parse(titles)
             res.header('Content-Type', 'text/csv')

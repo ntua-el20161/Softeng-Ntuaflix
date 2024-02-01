@@ -1,6 +1,5 @@
 .dropdown {
     display: inline-block;
-    /* margin-right: 8.4%; */
 }
 
 select {
@@ -26,41 +25,3 @@ option:hover {
     background-color: violet;
     color: aliceblue;
 }
-/*
-.dropdown-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    height: 25px;
-    width: 100px;
-    background-color: #a78bfa;
-    border-radius: 5px;
-}
-
-.dropdown-button:hover {
-    background-color: violet;
-    color: aliceblue;
-}
-
-.dropdown-menu {
-    list-style-type: none;
-    position: absolute;
-    background-color: white;
-    border: 1px solid #290b0b;
-    width: 100px;
-    z-index: 1;
-}
-
-.dropdown-content button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    text-align: center;
-    width: 100%;
-}
-
-.dropdown-content button:hover {
-    background-color: #a78bfa;
-    color: aliceblue;
-} */

@@ -83,13 +83,12 @@ app.use('/ntuaflix_api/clibygenre', cliByGenreRoute)
 const getAllGenresRoute = require('./api/routes/query/allgenres')
 app.use('/ntuaflix_api/getallgenres', getAllGenresRoute)
 
-//==========================================================================
-app.use('/ntuaflix_api', (req, res) => {
-  res.status(200).json({
-    ntuaflix_api: "Welcome to the ntuaflix_api!"
-  })
-})
+//Handler for the name/nameID with query
+const queryNameRoute = require('./api/routes/query/name')
+app.use('/ntuaflix_api/name', queryNameRoute)
 
+//==========================================================================
+  
 app.use((req, res, next) => {
   const error = new Error('Endpoint implementation not found')
   error.status = 404

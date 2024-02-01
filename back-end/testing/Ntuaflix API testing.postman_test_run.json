@@ -1,0 +1,327 @@
+{
+	"id": "625a1a60-3af8-42f1-9dae-5f9927a9ba0f",
+	"name": "Ntuaflix API testing",
+	"timestamp": "2024-01-27T17:57:12.907Z",
+	"collection_id": "31100561-722f7ccf-932d-4504-b4ea-3179aa87a743",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 30,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2024-01-27T17:57:01.319Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "416f725d-5eff-4ac3-8f8e-b4f9da940106",
+			"name": "Fetch info of specific title",
+			"url": "localhost:9876/ntuaflix_api/info/title/tt0000929",
+			"time": 157,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response time is less than 200ms": true,
+				"Content-Type header is application/json": true,
+				"Response body should be an object with the required fields": true,
+				"titleID field should be equal to the titleID path parameter": true,
+				"originalTitle field should not be empty": true,
+				"genres field should be a list": true,
+				"titleAkas field should be a list": true,
+				"principals field should be a list": true,
+				"rating field should be an object with the following two fields: avRating, nVotes": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 200ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type header is application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response body should be an object with the required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"titleID field should be equal to the titleID path parameter": {
+					"pass": 1,
+					"fail": 0
+				},
+				"originalTitle field should not be empty": {
+					"pass": 1,
+					"fail": 0
+				},
+				"genres field should be a list": {
+					"pass": 1,
+					"fail": 0
+				},
+				"titleAkas field should be a list": {
+					"pass": 1,
+					"fail": 0
+				},
+				"principals field should be a list": {
+					"pass": 1,
+					"fail": 0
+				},
+				"rating field should be an object with the following two fields: avRating, nVotes": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				157
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response time is less than 200ms": true,
+					"Content-Type header is application/json": true,
+					"Response body should be an object with the required fields": true,
+					"titleID field should be equal to the titleID path parameter": true,
+					"originalTitle field should not be empty": true,
+					"genres field should be a list": true,
+					"titleAkas field should be a list": true,
+					"principals field should be a list": true,
+					"rating field should be an object with the following two fields: avRating, nVotes": true
+				}
+			]
+		},
+		{
+			"id": "847cf6aa-8bd3-4c3e-97d7-01f28136dd30",
+			"name": "Search a title",
+			"url": "localhost:9876/ntuaflix_api/info/searchtitle",
+			"time": 1534,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Content-Type header is application/json": true,
+				"Response is a list": true,
+				"Response has the required fields": true,
+				"Each item's originalTitle field contains the titlePart value from the request body": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type header is application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is a list": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Each item's originalTitle field contains the titlePart value from the request body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1534
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Content-Type header is application/json": true,
+					"Response is a list": true,
+					"Response has the required fields": true,
+					"Each item's originalTitle field contains the titlePart value from the request body": true
+				}
+			]
+		},
+		{
+			"id": "84e09c31-830b-4097-b3fd-583fd7e2c80f",
+			"name": "By Genre",
+			"url": "localhost:9876/ntuaflix_api/info/bygenre",
+			"time": 5459,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Content type is application/json": true,
+				"Response is a list": true,
+				"Response has the required fields": true,
+				"Each genre object has a non-empty genreTitle": true,
+				"the avRating field of each object should be greater than or equal to the minrating body parameter": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content type is application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is a list": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Each genre object has a non-empty genreTitle": {
+					"pass": 1,
+					"fail": 0
+				},
+				"the avRating field of each object should be greater than or equal to the minrating body parameter": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5459
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Content type is application/json": true,
+					"Response is a list": true,
+					"Response has the required fields": true,
+					"Each genre object has a non-empty genreTitle": true,
+					"the avRating field of each object should be greater than or equal to the minrating body parameter": true
+				}
+			]
+		},
+		{
+			"id": "b3bc0f9b-a288-4311-8b8e-1f90702b1edd",
+			"name": "Get Name Information",
+			"url": "localhost:9876/ntuaflix_api/info/name/nm0000019",
+			"time": 27,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response has the required fields": true,
+				"NameTitles array contains at least one element": true,
+				"Name titles have non-empty titleID and category": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"NameTitles array contains at least one element": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Name titles have non-empty titleID and category": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response has the required fields": true,
+					"NameTitles array contains at least one element": true,
+					"Name titles have non-empty titleID and category": true
+				}
+			]
+		},
+		{
+			"id": "597532b8-060f-4796-bc76-73bced9530ab",
+			"name": "Search Name",
+			"url": "localhost:9876/ntuaflix_api/info/searchname",
+			"time": 206,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Content-Type header is application/json": true,
+				"Response is a list": true,
+				"Response has the required fields": true,
+				"Each item's name field contains the namePart value from the request body": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type header is application/json": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is a list": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has the required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Each item's name field contains the namePart value from the request body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				206
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Content-Type header is application/json": true,
+					"Response is a list": true,
+					"Response has the required fields": true,
+					"Each item's name field contains the namePart value from the request body": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 7383,
+	"collection": {
+		"requests": [
+			{
+				"id": "416f725d-5eff-4ac3-8f8e-b4f9da940106",
+				"method": "GET"
+			},
+			{
+				"id": "847cf6aa-8bd3-4c3e-97d7-01f28136dd30",
+				"method": "GET"
+			},
+			{
+				"id": "84e09c31-830b-4097-b3fd-583fd7e2c80f",
+				"method": "GET"
+			},
+			{
+				"id": "b3bc0f9b-a288-4311-8b8e-1f90702b1edd",
+				"method": "GET"
+			},
+			{
+				"id": "597532b8-060f-4796-bc76-73bced9530ab",
+				"method": "GET"
+			}
+		]
+	}
+}
