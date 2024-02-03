@@ -22,6 +22,9 @@ Clone the repository
 
 ```bash
 git clone https://github.com/ntua/softeng23-15.git
+```
+Navigate to the cloned repository:
+```
 cd softeng23-15
 ```
 Launch the app with the following command:
@@ -58,6 +61,18 @@ Make sure to name your database 'sample_data_softeng' as this name is hardcoded 
 
 
 ### Step 3: Populate the database
+Before continuing please make sure that the backend is connected to the database. This can be achieved with 2 ways:
+- From the root directory
+```
+npm run deploy 
+```
+- From the back-end folder
+```
+cd back-end
+npm install
+npm start
+```
+
 Populate the database using the CLI.
 - Navigate to the CLI folder and configure it:
 ```bash
@@ -71,11 +86,13 @@ npm link
 ```
 se2315 newtitles --filename truncated_title.basics.tsv
 ```
+
 ### Step 5: Done!
-You can now refresh the localhost:3000 page to see the full application
-
-
-
+If you havent done it already you can redeploy the app from the root directory:
+```
+npm run deploy
+```
+If you already did, just refresh the page in which the app is deployed!
 
 
 
