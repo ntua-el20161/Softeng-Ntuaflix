@@ -1,0 +1,15 @@
+{
+    "name": "ntuflix",
+    "version": "1.0.0",
+
+    "scripts": {
+      "deploy": "cd front-end && npm install && npm start"
+    },
+    "dependencies": {
+      
+    },
+    "devDependencies": {
+      
+    }
+  }
+  

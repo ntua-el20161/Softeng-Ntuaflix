@@ -34,6 +34,10 @@ const NameInfo = () => {
         getName()
     }, [nameID, navigate])
 
+    const substituteWidth = (url) => {
+        return url.replace('{width_variable}', 'w220_and_h330_face');
+    };
+
     return (
         <>
         <NavBar>
@@ -45,7 +49,7 @@ const NameInfo = () => {
                 <>
                     <div className="info-title">{name.name}</div>
                     <div className="info-image-container">
-                        <img className="info-img" src={Img} alt="Default"></img>
+                        {name.namePoster? (<img className="info-img" src={substituteWidth(name.namePoster)} alt=""></img>):(<img className="info-img" src={Img} alt="Default"></img>)}
                     </div>
                     <div className="info-details">
                         {/* <p>ID: <span>{name.nameID}</span></p> */}

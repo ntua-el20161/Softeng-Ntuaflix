@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "Vasileios-Panagiotis Miligas",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",

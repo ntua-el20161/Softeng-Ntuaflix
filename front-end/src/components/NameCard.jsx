@@ -4,14 +4,18 @@ import {Link} from 'react-router-dom'
 
 export const NameCard = ({nm}) => {
 
-    const { nameID, name, profession} = nm
+    const { nameID, name, profession, namePoster} = nm
+
+    const substituteWidth = (url) => {
+        return url.replace('{width_variable}', 'w220_and_h330_face');
+    };
 
     return (
     <>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <div className="card-container">
             <div className="card-img-container">
-                {<img className="card-img" src={Img} alt="Default"/>}
+                {namePoster? (<img className="card-img" src={substituteWidth(namePoster)} alt="Default"/>) : (<img className="card-img" src={Img} alt="Default"/>)}
             </div>
             <div className="card-details">
                 <div>

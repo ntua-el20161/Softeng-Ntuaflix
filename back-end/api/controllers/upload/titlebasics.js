@@ -39,13 +39,15 @@ exports.UploadTitleBasics = async (req, res) => {
         let status;
         const alreadyUploaded = await titleBasics.findOne({ $or: data })
         if(alreadyUploaded) {   
-            response = {
+            response = 
+            {
                 titleBasics: 'File already uploaded'
             }
-            status = 500
+            status = 409
         } else {
             await titleBasics.insertMany(data)
-            response = {
+            response = 
+            {
                 titleBasics: 'File uploaded successfully'
             }
             status = 200

@@ -35,6 +35,10 @@ const TitleInfo = () => {
         getTitle()
     }, [titleID, navigate])
 
+    const substituteWidth = (url) => {
+        return url.replace('{width_variable}', 'w220_and_h330_face');
+    };
+
     return (
         <>
         <NavBar>
@@ -46,7 +50,8 @@ const TitleInfo = () => {
                 <>
                     <div className="info-title">{title.originalTitle}</div>
                     <div className="info-image-container">
-                        <img className="info-img" src={Img} alt="Default"></img>
+                        {title.titlePoster?
+                        (<img className="info-img" src={substituteWidth(title.titlePoster)} alt="Default"></img>):(<img className="info-img" src={Img} alt="Default"></img>)}
                     </div>
                     <div className="info-details">
                         {/* <p>ID: <span>{title.titleID}</span></p> */}
