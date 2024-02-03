@@ -21,7 +21,7 @@ Ensure that you have the following installed in your machine:
 Clone the repository
 
 ```bash
-clone https://github.com/ntua/softeng23-15.git
+git clone https://github.com/ntua/softeng23-15.git
 cd softeng23-15
 ```
 Launch the app with the following command:
