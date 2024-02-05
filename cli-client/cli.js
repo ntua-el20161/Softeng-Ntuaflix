@@ -308,7 +308,7 @@ program
       }
 
       const response = await axios.get('http://localhost:9876/ntuaflix_api/searchname', {
-        params: { name: name, format },
+        params: { namePart: name, format },
       });
 
       console.log(response.data)
@@ -332,7 +332,7 @@ program
       }
 
       const response = await axios.get('http://localhost:9876/ntuaflix_api/searchtitle', {
-        params: { titlepart: titlepart, format },
+        params: { titlePart: titlepart, format },
       });
 
       console.log(response.data)
