@@ -38,14 +38,13 @@ function App () {
           console.log(response.data);
         }
       } else {
-          const response = await axios.get(bg_URL, { params: { qgenre: genre } })
+          const response = await axios.get(bg_URL, { params: { qgenre: genre, minrating: 0 } })
           setTitles(response.data)
           console.log('titles updated based on genre')
           console.log(response.data)
       }
     } catch (error) {
       console.error('API request failed:', error.response?.status, error.response?.data)
-      throw error
     }
   }, [genre, option, query, searchActive])
 

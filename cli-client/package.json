@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node cli.js",
-    "test": "mocha"
+    "test": "mocha --recursive 'testing/*.mjs'"
   },
   "keywords": [],
   "dependencies": {

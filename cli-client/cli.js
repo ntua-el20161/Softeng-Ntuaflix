@@ -329,7 +329,7 @@ program
         return;
       }
 
-      const response = await axios.get('http://localhost:9876/ntuaflix_api/searchtitle', {
+      const response = await axios.get('http://localhost:9876/ntuaflix_api/info/searchtitle', {
         params: { titlePart: titlepart, format },
       });
 
@@ -359,7 +359,7 @@ program
         return;
       }
 
-      const response = await axios.get('http://localhost:9876/ntuaflix_api/clibygenre', {
+      const response = await axios.get('http://localhost:9876/ntuaflix_api/info/bygenre', {
         params: { qgenre: genre, minrating: min, format },
       });
 

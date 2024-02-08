@@ -1,5 +1,5 @@
 export const BASE_URL = 'http://localhost:9876/ntuaflix_api'
-export const bg_URL = 'http://localhost:9876/ntuaflix_api/bygenre'
+export const bg_URL = 'http://localhost:9876/ntuaflix_api/info/bygenre'
 export const st_URL = 'http://localhost:9876/ntuaflix_api/info/searchtitle'
 export const sn_URL = 'http://localhost:9876/ntuaflix_api/info/searchname'
 export const tt_URL = 'http://localhost:9876/ntuaflix_api/info/title'

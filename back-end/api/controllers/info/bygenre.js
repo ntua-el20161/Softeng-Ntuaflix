@@ -6,13 +6,33 @@ const TitleBasics = require('../../models/titlebasics')
 const json2csv = require('json2csv').Parser
 
 exports.GetTitleByGenre = async (req, res) => {
+    const genres = ["Genres", "Comedy","Short","Animation","Western","Horror","Documentary","Drama","Crime","Musical","Family","Action","Fantasy","Sci-Fi","Thriller","Romance","Music","Mystery","Sport","Biography","History","Adult","War","Adventure","News"]
     try {
-        const genre = req.body.qgenre
-        const minRating = req.body.minrating
+        let genre
+        let minRating
+        if(req.query.qgenre && req.query.qgenre) {
+            genre = req.query.qgenre
+            minRating = req.query.minrating
+        } else {
+            genre = req.body.qgenre
+            minRating = req.body.minrating
+        }
 
         if (!genre || !minRating) {
             return res.status(400).json({
                 message: 'Missing qgenre or minrating in the request body'
+            })
+        }
+
+        if(!genres.includes(genre)) {
+            return res.status(404).json({
+                message: 'Please provide a valid genre'
+            })
+        }
+
+        if(isNaN(Number(minRating))) {
+            return res.status(400).json({
+                message: 'Please provide a number as minRating'
             })
         }
 

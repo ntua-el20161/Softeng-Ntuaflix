@@ -7,7 +7,12 @@ const json2csv = require('json2csv').Parser
 
 exports.SearchTitle = async (req, res) => {
     try {
-      const titlePart = req.body.titlePart
+      let titlePart
+      if (req.query.titlePart) {
+        titlePart = req.query.titlePart
+      } else {
+        titlePart = req.body.titlePart
+      }
         
       // Validate the input
       if (!titlePart) {
