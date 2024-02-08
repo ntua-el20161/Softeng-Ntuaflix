@@ -18,10 +18,7 @@ program
       const response = await axios.get('http://localhost:9876/ntuaflix_api/admin/healthcheck', {
         params: { format }
       });
-
-      
       console.log(response.data)
-      
     } catch  {
       console.log(
         {
@@ -46,7 +43,7 @@ program
         });
         console.log(response.data)
       } catch (error) {
-        console.error('Error:', error.response?.data);
+        console.log('Error:', error.response?.data);
       }
     } else {
       console.error('Please provide a title ID using --titleID.');
@@ -56,12 +53,13 @@ program
 program
   .command('name')
   .description('Get information about a contributor by its ID')
-  .option('-i, --nameID <nameID>', 'Specify the name ID')
+  .option('-i, --nameid <nameid>', 'Specify the name ID')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action(async (options) => {
-    if (options.nameID) {
+    if (options.nameid) {
       try {
-        const { nameID, format } = options;
+        const nameID = options.nameid
+        const format = options.format
         const response = await axios.get(`http://localhost:9876/ntuaflix_api/info/name/${nameID}`, {
           params: { format }
         });
@@ -70,7 +68,7 @@ program
         console.error('Error:', error.response?.data);
       }
     } else {
-      console.error('Please provide a name ID using --nameID.');
+      console.error('Please provide a name ID using --nameid.');
     }
   });
 
@@ -307,13 +305,13 @@ program
         return;
       }
 
-      const response = await axios.get('http://localhost:9876/ntuaflix_api/searchname', {
-        params: { name: name, format },
+      const response = await axios.get('http://localhost:9876/ntuaflix_api/info/searchname', {
+        params: { namePart: name, format },
       });
 
       console.log(response.data)
     } catch (error) {
-      console.error(error.response?.data);
+      console.error('Error:', error.response?.data);
     }
   });
 
@@ -332,27 +330,32 @@ program
       }
 
       const response = await axios.get('http://localhost:9876/ntuaflix_api/searchtitle', {
-        params: { titlepart: titlepart, format },
+        params: { titlePart: titlepart, format },
       });
 
       console.log(response.data)
     } catch (error) {
-      console.error(error.response?.data);
+      console.error('Error:', error.response?.data);
     }
   });
 
 program
   .command('bygenre')
   .description('Get titles by genre and minimum rating')
-  .requiredOption('-g, --genre <genre>', 'Specify the desired genre')
-  .requiredOption('-m, --min <min>', 'Specify the minimum rating')
+  .option('-g, --genre <genre>', 'Specify the desired genre')
+  .option('-m, --min <min>', 'Specify the minimum rating')
   .option('-f, --format <format>', 'Specify the output format (json or csv)', /^(json|csv)$/i, 'json')
   .action(async (options) => {
     try {
       const { genre, min, format } = options;
 
-      if (!genre || !min) {
-        console.error('Please provide both --genre and --min options.');
+      if (!genre) {
+        console.error('Please provide a genre using --genre.');
+        return;
+      }
+
+      if (!min) {
+        console.error('Please provide a minimum rating using --min.');
         return;
       }
 
@@ -362,7 +365,7 @@ program
 
       console.log(response.data)
     } catch (error) {
-      console.error(error.response?.data);
+      console.error('Error:', error.response?.data);
     }
   });
 

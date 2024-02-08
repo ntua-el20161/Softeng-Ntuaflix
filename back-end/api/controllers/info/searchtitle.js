@@ -19,7 +19,7 @@ exports.SearchTitle = async (req, res) => {
       
       if (!results || results.length === 0) {
         return res.status(404).json({
-            message: 'No titles found for the provided search term'
+            message: 'No titles found'
         })
       }
 

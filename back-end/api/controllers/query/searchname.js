@@ -4,6 +4,7 @@ const json2csv = require('json2csv').Parser
 
 exports.GetSearchName = async (req, res) => {
     try {
+        
         const namePart = req.query.namePart
         // console.log(namePart)
         // if (!namePart) {

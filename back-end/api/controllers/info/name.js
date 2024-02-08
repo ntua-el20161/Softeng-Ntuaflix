@@ -11,7 +11,7 @@ exports.GetName = async (req, res) => {
                 message: 'Name not found'
             })
         }
-
+        
         const titlePrincipals = await TitlePrincipals.find({ nconst: result.nconst }).exec()
 
         const nameTitleList = titlePrincipals ? (titlePrincipals).map(nameTitle => ({
